@@ -36,7 +36,7 @@
   "scripts": {
     "build": "node build.cjs --install-local",
     "test": "test",
-    "tsc": "tsc"
+    "build": "tsc"
   },
   "sharedNodeModuleProjectSLinkEnvVar": [
     "TESTS4TS_NODE_MODULE_SLINK"
