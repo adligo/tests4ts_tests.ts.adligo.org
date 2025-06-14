@@ -1,7 +1,9 @@
 {
   "author": "Adligo Inc / Scott Morgan",
   "bin": {
-    "slink": "./dist/slink.js"
+    "allTrials.mjs": "./dist/tests4ts_tests.ts.adligo.org/src/allTrials.mjs",
+    "assertionsTrial.mjs": "./dist/tests4ts_tests.ts.adligo.org/src/assertionsTrial.mjs",
+    "": ""
   },
   "bugs": {
     "url": "https://github.com/adligo/tests4ts_tests.ts.adligo.org/issues"
@@ -18,7 +20,7 @@
     "child_process": "^1.0.2",
     "typescript": "^5.0.4"
   },
-  "homepage": "https://github.com/adligo/tests4ts_tests.ts.adligo.org#readme",
+  "homepage": "https://github.com/adligo/tests4ts_tests.ts.adligo.org",
   "keywords": [
     "symbolic",
     "link",
@@ -27,7 +29,7 @@
     "modules"
   ],
   "license": "Apache-2.0",
-  "name": "@ts.adligo.org/slink",
+  "name": "@ts.adligo.org/tests4ts_tests",
   "main": "./src/slink.ts",
   "repository": {
     "type": "git",

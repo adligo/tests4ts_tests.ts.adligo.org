@@ -21,7 +21,7 @@ import { TrialSuite } from '../../tests4ts.ts.adligo.org/src/tests4ts.mjs';
 import { JUnitXmlGenerator } from '../../junit-xml-tests4j.ts.adligo.org/src/junitXmlTests4jGenerator.mjs';
 
 // trials are orderd by dependency / usage
-export const suite = new TrialSuite('Io Obj and Strings Trial Suite ', ALL_TRIALS);
+export const suite = new TrialSuite('Tests4ts Trial Suite ', ALL_TRIALS);
 suite.run().printTextReport().printTestReportFiles(new JUnitXmlGenerator());
 
 
