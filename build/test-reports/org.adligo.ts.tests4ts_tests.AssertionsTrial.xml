@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.adligo.ts.tests4ts_tests.AssertionsTrial" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-06-14T02:20:06.727Z" hostname="localhost" time="0">
+  <properties/>
+  <testcase name="org.adligo.ts.tests4ts_tests.AssertionsTrial.testIsTrue" classname="org.adligo.ts.tests4ts_tests.AssertionsTrial" time="0.001"/>
+  <testcase name="org.adligo.ts.tests4ts_tests.AssertionsTrial.testIsFalse" classname="org.adligo.ts.tests4ts_tests.AssertionsTrial" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
