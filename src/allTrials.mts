@@ -19,12 +19,13 @@ import { ApiTrial } from '../../tests4ts.ts.adligo.org/src/trials.mjs';
 import { AssertionContext } from '../../tests4ts.ts.adligo.org/src/assertions.mjs';
 import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests4ts.mjs';
 import { AssertionsTrial } from './assertionsTrial.mjs';
+import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
 
 export const ALL_TRIAL_MAP: Map<string, I_Trial> = new Map();
 function addTrial(trial: I_Trial) {
   ALL_TRIAL_MAP.set(trial.getName(), trial)
 }
-export const ALL_TRIALS: I_Trial[] = [AssertionsTrial.new()]
+export const ALL_TRIALS: I_Trial[] = [AssertionsTrial.new(), FastEqualsRecursiveCheckerTrial.new()]
 for (const t of ALL_TRIALS) {
   addTrial(t);
 }

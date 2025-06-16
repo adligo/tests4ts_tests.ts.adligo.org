@@ -39,7 +39,8 @@
     "build": "tsc",
     "buildAndTest": "tsc && c8 node ./dist/tests4ts_tests.ts.adligo.org/src/allTrialsRunner.mjs",
     "tests": "c8 node ./dist/tests4ts_tests.ts.adligo.org/src/allTrialsRunner.mjs",
-    "build": "tsc"
+    "trial": " bun run src/singleTrialRunner.mts ",
+    "trialNote": "Use a command like; npm run trial -- -trial org.adligo.ts.tests4ts_tests.RecursiveNotEqualsCheckerTrial"
   },
   "sharedNodeModuleProjectSLinkEnvVar": [
     "TESTS4TS_NODE_MODULE_SLINK"
