@@ -101,8 +101,8 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
   }
 
   public static readonly TESTS: I_Test[] = [
-    new Test(FastEqualsRecursiveCheckerTrial.CLAZZ_NAME +
-      '.testNotEqualsShallowFailures', (ac: I_AssertionContext) => {
+    new Test(
+      'testNotEqualsShallowFailures', (ac: I_AssertionContext) => {
 
         let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
         let undefResult = chk.fastEquals(undefined, '');
@@ -117,22 +117,22 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
         ac.same(false, nanResult.isSuccess());
         ac.same(1, nanResult.getAssertionCount());
       }),
-    new Test(FastEqualsRecursiveCheckerTrial.CLAZZ_NAME +
-        '.testNotEqualsShallowSuccesses', (ac: I_AssertionContext) => {
+    new Test(
+      'testNotEqualsShallowSuccesses', (ac: I_AssertionContext) => {
 
-      let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
-      let undefResult = chk.fastEquals(undefined, undefined);
-      ac.same(true, undefResult.isSuccess());
-      ac.same(1, undefResult.getAssertionCount());
+        let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
+        let undefResult = chk.fastEquals(undefined, undefined);
+        ac.same(true, undefResult.isSuccess());
+        ac.same(1, undefResult.getAssertionCount());
 
-      let nullResult = chk.fastEquals(null, null);
-      ac.same(true, nullResult.isSuccess());
-      ac.same(1, nullResult.getAssertionCount());
+        let nullResult = chk.fastEquals(null, null);
+        ac.same(true, nullResult.isSuccess());
+        ac.same(1, nullResult.getAssertionCount());
 
-      let nanResult = chk.fastEquals(NaN, NaN);
-      ac.same(true, nanResult.isSuccess());
-      ac.same(1, nanResult.getAssertionCount());
-    })
+        let nanResult = chk.fastEquals(NaN, NaN);
+        ac.same(true, nanResult.isSuccess());
+        ac.same(1, nanResult.getAssertionCount());
+      })
   ]
 
     ;

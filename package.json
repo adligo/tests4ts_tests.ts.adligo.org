@@ -38,6 +38,7 @@
   "scripts": {
     "build": "tsc",
     "buildAndTest": "tsc && c8 node ./dist/tests4ts_tests.ts.adligo.org/src/allTrialsRunner.mjs",
+    "test": " bun run src/singleTestRunner.mts ",
     "tests": "c8 node ./dist/tests4ts_tests.ts.adligo.org/src/allTrialsRunner.mjs",
     "trial": " bun run src/singleTrialRunner.mts ",
     "trialNote": "Use a command like; npm run trial -- -trial org.adligo.ts.tests4ts_tests.RecursiveNotEqualsCheckerTrial"

@@ -21,11 +21,11 @@ import { ApiTrial } from '../../tests4ts.ts.adligo.org/src/trials.mjs';
 import { Test } from '../../tests4ts.ts.adligo.org/src/tests4ts.mjs';
 
 import { ALL_TRIAL_MAP } from './allTrials.mjs';
-import { SingleTrialRunner } from '@ts.adligo.org/tests4ts/dist/singleTrialRunner.mjs';
+import { SingleTestRunner } from '../../tests4ts.ts.adligo.org/src/singleTestRunner.mjs';
 
 /**
  * Use a command like; 
- * npm run trial -- -trial org.adligo.ts.tests4ts_tests.RecursiveNotEqualsCheckerTrial
+ * npm run test -- -test org.adligo.ts.tests4ts_tests.FastEqualsRecursiveCheckerTrial.testArrayEqualsSuccess
  * 
  */
-new SingleTrialRunner(ALL_TRIAL_MAP).runTrial();
+new SingleTestRunner(ALL_TRIAL_MAP).runTest();
