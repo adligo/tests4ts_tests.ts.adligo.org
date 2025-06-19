@@ -21,12 +21,18 @@ import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
 import { AssertionsTrial } from './assertionsTrial.mjs';
 import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
+import { TestRunnerTrial } from './testRunnerTrial.mjs';
 
 export const ALL_TRIAL_MAP: Map<string, I_Trial> = new Map();
 function addTrial(trial: I_Trial) {
   ALL_TRIAL_MAP.set(trial.getName(), trial)
 }
-export const ALL_TRIALS: I_Trial[] = [new BasicAssertionsTrial(),  AssertionsTrial.new(), FastEqualsRecursiveCheckerTrial.new()]
+export const ALL_TRIALS: I_Trial[] = [
+  //new BasicAssertionsTrial(),  
+  new AssertionsTrial(),
+  new FastEqualsRecursiveCheckerTrial()
+  //new TestRunnerTrial()
+]
 for (const t of ALL_TRIALS) {
   addTrial(t);
 }
