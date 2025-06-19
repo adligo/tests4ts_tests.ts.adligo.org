@@ -28,7 +28,7 @@ function addTrial(trial: I_Trial) {
   ALL_TRIAL_MAP.set(trial.getName(), trial)
 }
 export const ALL_TRIALS: I_Trial[] = [
-  //new BasicAssertionsTrial(),  
+  new BasicAssertionsTrial(),  
   new AssertionsTrial(),
   new FastEqualsRecursiveCheckerTrial()
   //new TestRunnerTrial()

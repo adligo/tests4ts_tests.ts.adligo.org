@@ -15,11 +15,11 @@
  */
 
 import { runTrial } from '../../tests4ts.ts.adligo.org/src/singleTrialRunner.mjs';
-
+import { AssertionsTrial} from './assertionsTrial.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
 import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
 
 import { TestRunnerTrial } from './testRunnerTrial.mjs';
 
 //runTrial( new BasicAssertionsTrial());
-runTrial(new TestRunnerTrial());
+runTrial(new AssertionsTrial());
