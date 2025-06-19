@@ -21,7 +21,7 @@ import { I_Equatable } from '@ts.adligo.org/i_obj/dist/i_obj.mjs';
 import { I_String } from '@ts.adligo.org/i_strings/dist/i_strings.mjs';
 import { I_AssertionContext, I_EquatableString, I_Test } from '../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
 import { ApiTrial } from '../../tests4ts.ts.adligo.org/src/trials.mjs';
-import { Test } from '../../tests4ts.ts.adligo.org/src/tests4ts.mjs';
+import { Test } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 
 export class EqMock implements I_Equatable {
   name: string;

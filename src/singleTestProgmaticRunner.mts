@@ -16,6 +16,8 @@
 
 import { runTest } from '../../tests4ts.ts.adligo.org/src/singleTestRunner.mjs';
 
+import { AssertionsTrial } from './assertionsTrial.mjs';
 import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
 
-runTest(FastEqualsRecursiveCheckerTrial.new(), 'testNotEqualsShallowSuccesses');
+runTest(new AssertionsTrial(), 'testNotEqualsStringFailures');
+//runTest(FastEqualsRecursiveCheckerTrial.new(), 'testFastEqualsShallowTypeFailures');
