@@ -139,28 +139,32 @@ class AssertFastEqualsParams {
 }
 export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
   public static readonly CLAZZ_NAME = 'org.adligo.ts.tests4ts_tests.FastEqualsRecursiveCheckerTrial';
-  public static new() {
-    return new FastEqualsRecursiveCheckerTrial();
+
+  constructor() {
+    super(FastEqualsRecursiveCheckerTrial.CLAZZ_NAME);
   }
 
-  public static readonly TESTS: I_Test[] = [
-    new Test(TestParams.of(
-      'testFastEqualsShallowTypeFailures').ignore(), (ac: I_AssertionContext) => {
+  /** 
+   * This test method acts like an annotation in Java to 
+   * ignore the method
+   */
+  testFastEqualsShallowTypeFailuresIgnored() { }
+  testFastEqualsShallowTypeFailures(ac: I_AssertionContext) {
 
-      AssertFastEqualsParams.setAC(ac);
-      let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
-      FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
-        [], true, "An Array MUST fail fast equals with a boolean, "));
-      FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
-        [], NaN, "An Array MUST fail fast equals with a NaN, "));
-      FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
-        [], null, "An Array MUST fail fast equals with a null, "));
-      FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
-        [], {}, "An Array MUST fail fast equals with a object, "));
-      FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
-        [], '', "An Array MUST fail fast equals with a string, "));
-      FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
-        [], undefined, "An Array MUST fail fast equals with a undefined, "));
+    AssertFastEqualsParams.setAC(ac);
+    let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
+    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
+      [], true, "An Array MUST fail fast equals with a boolean, "));
+    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
+      [], NaN, "An Array MUST fail fast equals with a NaN, "));
+    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
+      [], null, "An Array MUST fail fast equals with a null, "));
+    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
+      [], {}, "An Array MUST fail fast equals with a object, "));
+    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
+      [], '', "An Array MUST fail fast equals with a string, "));
+    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(new AssertFastEqualsParams(
+      [], undefined, "An Array MUST fail fast equals with a undefined, "));
     //Nan
 
     //Null
@@ -188,9 +192,14 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
     let undefNullResult = chk.fastEquals(undefined, null);
     ac.same(false, undefNullResult.isSuccess());
     ac.same(1, undefNullResult.getAssertionCount());
-      }),
-new Test(TestParams.of(
-  'testFastEqualsShallowSuccesses').ignore(), (ac: I_AssertionContext) => {
+  }
+
+  /**
+   * This test method acts like an annotation in Java to 
+   * ignore the method
+   */
+  testFastEqualsShallowSuccessesIgnored() { }
+  testFastEqualsShallowSuccesses(ac: I_AssertionContext) {
 
     let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
     let undefResult = chk.fastEquals(undefined, undefined);
@@ -204,17 +213,15 @@ new Test(TestParams.of(
     let nanResult = chk.fastEquals(NaN, NaN);
     ac.same(true, nanResult.isSuccess());
     ac.same(1, nanResult.getAssertionCount());
-  })
-  ]
+  }
+
 
   private static assertFastEqualsShallowFailure(params: AssertFastEqualsParams) {
-  let result = params.getChecker().fastEquals(params.getExpected(), params.getActual());
-  params.getAc().same(false, result.isSuccess(), params.getMessage() + ' isSuccess.');
-  params.getAc().same(1, result.getAssertionCount(), params.getMessage() + ' getAssertionCount.');
-}
+    let result = params.getChecker().fastEquals(params.getExpected(), params.getActual());
+    params.getAc().same(false, result.isSuccess(), params.getMessage() + ' isSuccess.');
+    params.getAc().same(1, result.getAssertionCount(), params.getMessage() + ' getAssertionCount.');
+  }
 
-;
-constructor() {
-  super(FastEqualsRecursiveCheckerTrial.CLAZZ_NAME, FastEqualsRecursiveCheckerTrial.TESTS);
-}
+  ;
+
 }
