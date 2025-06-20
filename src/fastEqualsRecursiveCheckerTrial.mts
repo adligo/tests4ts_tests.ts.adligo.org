@@ -256,8 +256,8 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
   }
 
   testFastEqualsShallowSuccesses(ac: I_AssertionContext) {
-
-    console.log("testFastEqualsShallowSuccesses start");
+    //set this each time!
+    AssertFastEqualsParams.setAC(ac);
     let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
     FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(new AssertFastEqualsParams(
        [], [], "Two empty arrays should be equal.", 2
@@ -287,7 +287,6 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
     FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(new AssertFastEqualsParams(
         undefined, undefined, "Two undefineds should be equal."
     ));
-    console.log("testFastEqualsShallowSuccesses end");
   }
 
 
