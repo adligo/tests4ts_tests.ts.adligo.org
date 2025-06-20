@@ -37,7 +37,7 @@ export class EvalMock implements I_Eval {
     public eval(javaScript: string): any {
         this._calls.push(javaScript);
         let r = this._results.get(javaScript);
-        if (Errors.isError(r)) {
+        if (Errors.isAError(r)) {
             throw r;
         }
         return r;
