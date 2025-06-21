@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { runTest } from '../../tests4ts.ts.adligo.org/src/singleTestRunner.mjs';
 
 import { AssertionsTrial } from './assertionsTrial.mjs';
 import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
+import {AbstractTrialTrial} from "./abstractTrialTrial.mjs";
 
-runTest(new AssertionsTrial(), 'testNotEqualsStringFailures');
-//runTest(FastEqualsRecursiveCheckerTrial.new(), 'testFastEqualsShallowTypeFailures');
+//runTest(new AssertionsTrial(), 'testNotEqualsStringFailures');
+runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelOneArrayItemFailures');
+//runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelTwoArrayItemFailures');
+//runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelThreeArrayItemFailures');
+
+//runTest(new AbstractTrialTrial(), 'testGetErrorDetails');
