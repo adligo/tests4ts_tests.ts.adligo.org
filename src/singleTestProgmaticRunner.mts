@@ -20,8 +20,10 @@ import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTri
 import {AbstractTrialTrial} from "./abstractTrialTrial.mjs";
 
 //runTest(new AssertionsTrial(), 'testNotEqualsStringFailures');
-runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelOneArrayItemFailures');
+//runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelOneArrayItemFailures');
 //runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelTwoArrayItemFailures');
 //runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelThreeArrayItemFailures');
+
+runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelThreeMapItemFailures');
 
 //runTest(new AbstractTrialTrial(), 'testGetErrorDetails');

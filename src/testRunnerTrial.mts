@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { I_Eval, I_Trial } from '../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
+import { I_Eval, I_FunctionFactory, I_Trial } from '../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
 import { TestRunner } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 import { ApiTrial } from '../../tests4ts.ts.adligo.org/src/trials.mjs';
 import { AssertionContext } from '../../tests4ts.ts.adligo.org/src/assertions.mjs';
@@ -22,50 +22,59 @@ import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
 import { AssertionsTrial } from './assertionsTrial.mjs';
 import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
-import {I_AssertionContext} from "../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs";
-import {Errors} from "@ts.adligo.org/type-guards/dist/typeGuards.mjs";
-import {TrialParams} from "../../tests4ts.ts.adligo.org/src/trials.mjs";
+import { I_AssertionContext } from "../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs";
+import { Errors } from "@ts.adligo.org/type-guards/dist/typeGuards.mjs";
+import { TrialParams } from "../../tests4ts.ts.adligo.org/src/trials.mjs";
 
-export class EvalMock implements I_Eval {
-    _calls: string[] = [];
-    _results: Map<string,any> = new Map();
+export class FunctionFactoryMock implements I_FunctionFactory {
+  _calls: string[] = [];
+  _results: Map<string, Function | Error> = new Map();
 
-    constructor(results?: Map<string, any> ) {
-        this._results = results;
+  constructor(results?: Map<string, Function | Error>) {
+    this._results = results;
+  }
+
+  public newFun(...params: string[]): Function {
+    var paramsConcat = '';
+    for (const p of params) {
+      paramsConcat += p + ' ';
     }
-
-    public eval(javaScript: string): any {
-        this._calls.push(javaScript);
-        let r = this._results.get(javaScript);
-        if (Errors.isAError(r)) {
-            throw r;
-        }
-        return r;
+    this._calls.push(paramsConcat);
+    let r = this._results.get(paramsConcat);
+    if (Errors.isAError(r)) {
+      throw r;
     }
+    return r as Function;
+  }
 
-    public getCall(idx: number): string {
-        return this._calls[idx];
-    }
+  public getCall(idx: number): string {
+    return this._calls[idx];
+  }
 
-    public getCallCount(): number {
-        return this._calls.length;
-    }
+  public getCallCount(): number {
+    return this._calls.length;
+  }
 }
 
 export class TestRunnerTrial extends ApiTrial /** TODO move to a SourceFileTrial */ {
-    public static readonly CLAZZ_NAME = "org.adligo.ts.tests4ts_tests.TestRunnerTrial";
+  public static readonly CLAZZ_NAME = "org.adligo.ts.tests4ts_tests.TestRunnerTrial";
 
-    constructor() {
-        super(TestRunnerTrial.CLAZZ_NAME);
+  constructor() {
+    super(TestRunnerTrial.CLAZZ_NAME);
+  }
 
-    }
-
-    testConstructorErrors(ac: I_AssertionContext) {
-        let ev = new EvalMock();
-        ac.thrown(new Error(), () => {
-            let testRunner = new TestRunner(new TestRunnerTrial(),
-                'testConstructorErrorsMissingMethod', ev);
-        });
-    }
+  testConstructorErrors(ac: I_AssertionContext) {
+    let results: Map<string, Function | Error> = new Map();
+    results.set('testInstance return testInstance.testConstructorErrorsMissingMethod == undefined; ',
+        new Function('testInstance', 'return testInstance.testConstructorErrorsMissingMethod == undefined;'));
+    let ffMock = new FunctionFactoryMock(results);
+    ac.thrown(new Error('Unable to find the following testMethod on the testInstance; ' +
+        '{"_name":"org.adligo.ts.tests4ts_tests.TestRunnerTrial","_ignored":0,"_tab":"  ' +
+        '","_testFactory":{},"_testFactoryParams":{"_testNamePrefix":"test","_testIgnoredSuffix":"Ignored"},"_results":[],"_failures":0}\n' +
+        '\t testMethod: testConstructorErrorsMissingMethod'), () => {
+      let testRunner = new TestRunner(new TestRunnerTrial(),
+        'testConstructorErrorsMissingMethod', ffMock);
+    });
+  }
 }
 

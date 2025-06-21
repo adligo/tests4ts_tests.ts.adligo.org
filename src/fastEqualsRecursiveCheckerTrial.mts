@@ -25,7 +25,7 @@ import { FastEqualsRecursiveChecker } from '../../tests4ts.ts.adligo.org/src/fas
 import { ComparisionNodeType, ComparisonNodeInfoType, TypeName } from '../../i_tests4ts_types.ts.adligo.org/src/i_tests4ts_types.mjs';
 import {
   I_AssertionContext, I_ComparisionArrayInfo,
-  I_ComparisionBaseInfo,
+  I_ComparisionBaseInfo, I_ComparisionMapValueInfo,
   I_ComparisionNode,
   I_EquatableString,
   I_Test
@@ -397,6 +397,88 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
         "cNode1's child at index 6 [2,2,2] should have false for actual");
 
     ac.same(21, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
+  }
+
+
+  testFastEqualsDeepLevelThreeMapItemFailures(ac: I_AssertionContext) {
+    let mapA = new Map();
+    let mapB = new Map();
+
+    let mapA1 = new Map();
+    mapA.set('k1', mapA1);
+    let mapB1 = new Map();
+    mapB.set('k1', mapB1);
+
+    let mapA2 = new Map();
+    mapA1.set('k2', mapA2);
+    let mapB2 = new Map();
+    mapB1.set('k2', mapB2);
+
+    mapA2.set('k3', "abc");
+    mapB2.set('k3', "xyz");
+
+
+    let checker = new FastEqualsRecursiveChecker();
+    let result1: RecursiveEqualsResult = checker.fastEquals(mapA, mapB);
+
+    //deep first assertions
+    let cNode1: I_ComparisionNode = result1.getComparisionNode();
+    ac.same(ComparisonNodeInfoType.Type, cNode1.getInfoType(), "The top most node type for c fastEquals d should be Array");
+    ac.isTrue(cNode1.hasChildInfo(), "cNode1 should have child info");
+    ac.isTrue(cNode1.getChildInfoSize() >= 1, "cNode1 should have at least one child");
+    ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(0).getInfoType(),
+        "cNode1's child at index 0 should be an Type");
+
+    //
+    //console.log('hmm' + JSON.stringify(cNode1.getChildInfo(1)));
+    ac.isTrue(cNode1.getChildInfoSize() >= 2, "cNode1 should have at least two children");
+    ac.same(ComparisonNodeInfoType.CollectionSize, cNode1.getChildInfo(1).getInfoType(),
+        "cNode1's child at index 1 should be an CollectionSize");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 3, "cNode1 should have at least three children");
+    ac.same(ComparisonNodeInfoType.MapValue, cNode1.getChildInfo(2).getInfoType(),
+        "cNode1's child at index 2 should be a MapValue");
+    let ciIdx2 = cNode1.getChildInfo(2) as I_ComparisionMapValueInfo;
+    console.log(JSON.stringify(ciIdx2));
+    ac.same('k1',ciIdx2.getKey() ,
+        "cNode1's child at index 2 should have a key of k1");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 4, "cNode1 should have at least three children");
+    ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(3).getInfoType(),
+        "cNode1's child at index 3 should be an Type");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 5, "cNode1 should have at least five children");
+    ac.same(ComparisonNodeInfoType.CollectionSize, cNode1.getChildInfo(4).getInfoType(),
+        "cNode1's child at index 4 should be an CollectionSize");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 6, "cNode1 should have at least six children");
+    ac.same(ComparisonNodeInfoType.MapValue, cNode1.getChildInfo(5).getInfoType(),
+        "cNode1's child at index 2 should be a MapValue");
+    ac.same('k2', (cNode1.getChildInfo(5) as I_ComparisionMapValueInfo).getKey() ,
+        "cNode1's child at index 5 should have a index of 2");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 7, "cNode1 should have at least seven children");
+    ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(6).getInfoType(),
+        "cNode1's child at index 6 should be an Type");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 8, "cNode1 should have at least eight children");
+    ac.same(ComparisonNodeInfoType.CollectionSize, cNode1.getChildInfo(7).getInfoType(),
+        "cNode1's child at index 7 should be an CollectionSize");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 9, "cNode1 should have at least nine children");
+    ac.same(ComparisonNodeInfoType.MapValue, cNode1.getChildInfo(8).getInfoType(),
+        "cNode1's child at index 8 should be an Array");
+    ac.same('k3', (cNode1.getChildInfo(8) as I_ComparisionMapValueInfo).getKey() ,
+        "cNode1's child at index 8 should have a index of 2");
+
+    ac.isTrue(cNode1.getChildInfoSize() >= 10, "cNode1 should have at least ten children");
+    let arrayZeroCompare: ComparisionNodeMutant = cNode1.getChildInfo(9) as ComparisionNodeMutant;
+    ac.same('abc', arrayZeroCompare.getExpected(),
+        "cNode1's child at index 6 [2,2,2] should have abc for expected");
+    ac.same('xyz', arrayZeroCompare.getActual(),
+        "cNode1's child at index 6 [2,2,2] should have xyz for actual");
+
+    ac.same(7, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
   }
 
   testFastEqualsShallowArrayItemFailures(ac: I_AssertionContext) {

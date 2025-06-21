@@ -22,4 +22,4 @@ import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTri
 import { TestRunnerTrial } from './testRunnerTrial.mjs';
 
 //runTrial( new BasicAssertionsTrial());
-runTrial(new FastEqualsRecursiveCheckerTrial());
+runTrial(new TestRunnerTrial());

@@ -30,8 +30,8 @@ function addTrial(trial: I_Trial) {
 export const ALL_TRIALS: I_Trial[] = [
   new BasicAssertionsTrial(),  
   new AssertionsTrial(),
-  new FastEqualsRecursiveCheckerTrial()
-  //new TestRunnerTrial()
+  new FastEqualsRecursiveCheckerTrial(),
+  new TestRunnerTrial()
 ]
 for (const t of ALL_TRIALS) {
   addTrial(t);
