@@ -23,7 +23,7 @@ import { I_String } from '@ts.adligo.org/i_strings/dist/i_strings.mjs';
 
 import { AssertionError } from '../../../tests4ts.ts.adligo.org/src/assertions.mjs';
 import { ComparisionNodeMutant } from '../../../tests4ts.ts.adligo.org/src/comparisonNodes.mjs';
-import { FastEqualsRecursiveChecker } from '../../../tests4ts.ts.adligo.org/src/fastEquals.mjs';
+import { EqualsRecursiveChecker } from '../../../tests4ts.ts.adligo.org/src/equals.mjs';
 import { I_AssertionContext, I_EquatableString, I_Test } from '../../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
 import { ApiTrial } from '../../../tests4ts.ts.adligo.org/src/trials.mjs';
 import { Test, TestParams } from '../../../tests4ts.ts.adligo.org/src/tests.mjs';

@@ -17,7 +17,7 @@ import { run, RunTestParams } from '../../tests4ts.ts.adligo.org/src/singleTestR
 import { I_AssertionContext, I_AssertionContextConsumer, I_Test, I_TestFactory, I_Trial } from "@ts.adligo.org/i_tests4ts/dist/i_tests4ts.mjs";
 
 import { AssertionsTrial } from './assertionsTrial.mjs';
-import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
+import { EqualsRecursiveCheckerTrial } from './equalsRecursiveCheckerTrial.mjs';
 import {AbstractTrialTrial} from "./abstractTrialTrial.mjs";
 
 //runTest(new AssertionsTrial(), 'testNotEqualsStringFailures');
@@ -28,6 +28,6 @@ import {AbstractTrialTrial} from "./abstractTrialTrial.mjs";
 //this method of running tests allows debugging right from this code which I think is nicer than the
 // older runTest function
 run(new RunTestParams((ac) => {
-        new FastEqualsRecursiveCheckerTrial().testFastEqualsShallowSuccesses(ac);
+        new EqualsRecursiveCheckerTrial().testFastEqualsShallowSuccesses(ac);
 }));
 //runTest(new AbstractTrialTrial(), 'testGetErrorDetails');

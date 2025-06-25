@@ -21,7 +21,6 @@ import { AssertionContext } from '../../tests4ts.ts.adligo.org/src/assertions.mj
 import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
 import { AssertionsTrial } from './assertionsTrial.mjs';
-import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
 import { I_AssertionContext } from "../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs";
 import { Errors } from "@ts.adligo.org/type-guards/dist/typeGuards.mjs";
 import { TrialParams } from "../../tests4ts.ts.adligo.org/src/trials.mjs";

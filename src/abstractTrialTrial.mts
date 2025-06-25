@@ -20,7 +20,6 @@ import { I_String } from '@ts.adligo.org/i_strings/dist/i_strings.mjs';
 import { isNil } from '@ts.adligo.org/type-guards/dist/typeGuards.mjs';
 import { ComparisionNodeMutant } from '../../tests4ts.ts.adligo.org/src/comparisonNodes.mjs';
 import { RecursiveEqualsResult } from '../../tests4ts.ts.adligo.org/src/equalsResults.mjs';
-import { FastEqualsRecursiveChecker } from '../../tests4ts.ts.adligo.org/src/fastEquals.mjs';
 
 import { ComparisionNodeType, ComparisonNodeInfoType, TypeName } from '../../i_tests4ts_types.ts.adligo.org/src/i_tests4ts_types.mjs';
 import {

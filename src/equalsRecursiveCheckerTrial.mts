@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-import { I_Equatable } from '@ts.adligo.org/i_obj/dist/i_obj.mjs';
-import { I_String } from '@ts.adligo.org/i_strings/dist/i_strings.mjs';
+import {I_Equatable} from '@ts.adligo.org/i_obj/dist/i_obj.mjs';
+import {I_String} from '@ts.adligo.org/i_strings/dist/i_strings.mjs';
 
-import { isNil } from '@ts.adligo.org/type-guards/dist/typeGuards.mjs';
-import { ComparisionNodeMutant } from '../../tests4ts.ts.adligo.org/src/comparisonNodes.mjs';
-import { RecursiveEqualsResult } from '../../tests4ts.ts.adligo.org/src/equalsResults.mjs';
-import { FastEqualsRecursiveChecker } from '../../tests4ts.ts.adligo.org/src/fastEquals.mjs';
+import {isNil} from '@ts.adligo.org/type-guards/dist/typeGuards.mjs';
+import {ComparisionNodeMutant} from '../../tests4ts.ts.adligo.org/src/comparisonNodes.mjs';
+import {RecursiveEqualsResult} from '../../tests4ts.ts.adligo.org/src/equalsResults.mjs';
+import {EqualsRecursiveChecker, FastOrDeep} from '../../tests4ts.ts.adligo.org/src/equals.mjs';
 
-import { ComparisionNodeType, ComparisonNodeInfoType, TypeName } from '../../i_tests4ts_types.ts.adligo.org/src/i_tests4ts_types.mjs';
+import {ComparisonNodeInfoType} from '../../i_tests4ts_types.ts.adligo.org/src/i_tests4ts_types.mjs';
 import {
-  I_AssertionContext, I_ComparisionArrayInfo,
-  I_ComparisionBaseInfo, I_ComparisionMapValueInfo,
+  I_AssertionContext,
+  I_ComparisionArrayInfo,
+  I_ComparisionMapValueInfo,
   I_ComparisionNode,
-  I_EquatableString,
-  I_Test
+  I_EquatableString
 } from '../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
-import { ApiTrial } from '../../tests4ts.ts.adligo.org/src/trials.mjs';
-import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
+import {ApiTrial} from '../../tests4ts.ts.adligo.org/src/trials.mjs';
 
 export class EqMock implements I_Equatable {
   name: string;
@@ -110,13 +109,13 @@ class AssertFastEqualsParams {
   get count(): number {
     return this._count;
   }
-  public static readonly CHECKER = new FastEqualsRecursiveChecker();
+  public static readonly CHECKER = new EqualsRecursiveChecker(FastOrDeep.Fast);
 
 
 
   private _ac: I_AssertionContext;
   private _actual: any;
-  private _checker: FastEqualsRecursiveChecker;
+  private _checker: EqualsRecursiveChecker;
   /**
    * The assertion count
    * @private
@@ -125,7 +124,7 @@ class AssertFastEqualsParams {
   private _expected: any;
   private _message: string;
 
-  constructor(ac: I_AssertionContext, checker: FastEqualsRecursiveChecker) {
+  constructor(ac: I_AssertionContext, checker: EqualsRecursiveChecker) {
     this._ac = ac;
     this._checker = checker;
   }
@@ -138,7 +137,7 @@ class AssertFastEqualsParams {
     return this._actual;
   }
 
-  getChecker(): FastEqualsRecursiveChecker {
+  getChecker(): EqualsRecursiveChecker {
     return this._checker;
   }
 
@@ -184,9 +183,9 @@ class AssertFastEqualsParams {
 
 class AssertFastEqualsParamsFactory {
   _ac: I_AssertionContext;
-  _checker: FastEqualsRecursiveChecker;
+  _checker: EqualsRecursiveChecker;
   
-  constructor(ac: I_AssertionContext, checker: FastEqualsRecursiveChecker) {
+  constructor(ac: I_AssertionContext, checker: EqualsRecursiveChecker) {
     this._ac = ac;
     this._checker = checker;
   }
@@ -201,23 +200,23 @@ class AssertFastEqualsParamsFactory {
   }
 }
 
-export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
-  public static readonly CLAZZ_NAME = 'org.adligo.ts.tests4ts_tests.FastEqualsRecursiveCheckerTrial';
+export class EqualsRecursiveCheckerTrial extends ApiTrial {
+  public static readonly CLAZZ_NAME = 'org.adligo.ts.tests4ts_tests.EqualsRecursiveCheckerTrial';
 
   private static assertFastEqualsShallowFailure(params: AssertFastEqualsParams) {
-    let chk: FastEqualsRecursiveChecker = params.getChecker();
+    let chk: EqualsRecursiveChecker = params.getChecker();
     let expected = params.getExpected();
     let actual = params.getActual();
-    let result = chk.fastEquals(expected, actual);
+    let result = chk.equals(expected, actual);
     params.getAc().same(false, result.isSuccess(), params.getMessage() + ' isSuccess.');
     params.getAc().same(1, result.getAssertionCount(), params.getMessage() + ' getAssertionCount.');
   }
 
   private static assertFastEqualsShallowSuccess(params: AssertFastEqualsParams) {
-    let chk: FastEqualsRecursiveChecker = params.getChecker();
+    let chk: EqualsRecursiveChecker = params.getChecker();
     let expected = params.getExpected();
     let actual = params.getActual();
-    let result = chk.fastEquals(expected, actual);
+    let result = chk.equals(expected, actual);
     params.getAc().same(true, result.isSuccess(), params.getMessage() + ' isSuccess.');
     if (params.hasCount()) {
       params.getAc().same(params.getCount(), result.getAssertionCount(), params.getMessage() + ' getAssertionCount.');
@@ -227,19 +226,18 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
   }
 
   constructor() {
-    super(FastEqualsRecursiveCheckerTrial.CLAZZ_NAME);
+    super(EqualsRecursiveCheckerTrial.CLAZZ_NAME);
   }
 
   testFastEqualsDeepLevelOneArrayItemFailures(ac: I_AssertionContext) {
     let c = [[true]];
     let d = [[false]];
 
-    let checker = new FastEqualsRecursiveChecker();
-    let result1: RecursiveEqualsResult = checker.fastEquals(c, d);
+    let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    let result1: RecursiveEqualsResult = checker.equals(c, d);
 
     //deep first assertions
     let cNode1: I_ComparisionNode = result1.getComparisionNode();
-    ac.same(ComparisonNodeInfoType.Type, cNode1.getInfoType(), "The top most node type for c fastEquals d should be Array");
     ac.isTrue(cNode1.hasChildInfo(), "cNode1 should have child info");
     ac.isTrue(cNode1.getChildInfoSize() >= 1, "cNode1 should have at least one child");
     ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(0).getInfoType(),
@@ -286,12 +284,11 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
     let g = [[1,2,3], [4, 5, 'i']];
     let h = [[1,2,3], [4, 5, 'k']];
 
-    let checker = new FastEqualsRecursiveChecker();
-    let result1: RecursiveEqualsResult = checker.fastEquals(g, h);
+    let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    let result1: RecursiveEqualsResult = checker.equals(g, h);
 
     //deep first assertions
     let cNode1: I_ComparisionNode = result1.getComparisionNode();
-    ac.same(ComparisonNodeInfoType.Type, cNode1.getInfoType(), "The top most node type for g fastEquals h should be Array");
     ac.isTrue(cNode1.hasChildInfo(), "cNode1 should have child info");
     ac.isTrue(cNode1.getChildInfoSize() >= 1, "cNode1 should have at least one child");
     ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(0).getInfoType(),
@@ -338,12 +335,11 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
     let e = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 11]]];
     let f = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 12]]];
 
-    let checker = new FastEqualsRecursiveChecker();
-    let result1: RecursiveEqualsResult = checker.fastEquals(e, f);
+    let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    let result1: RecursiveEqualsResult = checker.equals(e, f);
 
     //deep first assertions
     let cNode1: I_ComparisionNode = result1.getComparisionNode();
-    ac.same(ComparisonNodeInfoType.Type, cNode1.getInfoType(), "The top most node type for c fastEquals d should be Array");
     ac.isTrue(cNode1.hasChildInfo(), "cNode1 should have child info");
     ac.isTrue(cNode1.getChildInfoSize() >= 1, "cNode1 should have at least one child");
     ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(0).getInfoType(),
@@ -418,12 +414,11 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
     mapB2.set('k3', "xyz");
 
 
-    let checker = new FastEqualsRecursiveChecker();
-    let result1: RecursiveEqualsResult = checker.fastEquals(mapA, mapB);
+    let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    let result1: RecursiveEqualsResult = checker.equals(mapA, mapB);
 
     //deep first assertions
     let cNode1: I_ComparisionNode = result1.getComparisionNode();
-    ac.same(ComparisonNodeInfoType.Type, cNode1.getInfoType(), "The top most node type for c fastEquals d should be Array");
     ac.isTrue(cNode1.hasChildInfo(), "cNode1 should have child info");
     ac.isTrue(cNode1.getChildInfoSize() >= 1, "cNode1 should have at least one child");
     ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(0).getInfoType(),
@@ -485,12 +480,11 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
     let a = [true];
     let b = [false];
 
-    let checker = new FastEqualsRecursiveChecker();
-    let result1: RecursiveEqualsResult = checker.fastEquals(a, b);
+    let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    let result1: RecursiveEqualsResult = checker.equals(a, b);
 
     //deep first assertions
     let cNode1: I_ComparisionNode = result1.getComparisionNode();
-    ac.same(ComparisonNodeInfoType.Type, cNode1.getInfoType(), "The top most node type for a fastEquals b should be Array");
     ac.isTrue(cNode1.hasChildInfo(), "cNode1 should have child info");
     ac.isTrue(cNode1.getChildInfoSize() >= 1, "cNode1 should have at least one child");
     ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(0).getInfoType(),
@@ -522,119 +516,121 @@ export class FastEqualsRecursiveCheckerTrial extends ApiTrial {
 
   testFastEqualsShallowTypeFailures(ac: I_AssertionContext) {
 
-    let paramFactory = new AssertFastEqualsParamsFactory(ac, new FastEqualsRecursiveChecker());
-    let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    let paramFactory = new AssertFastEqualsParamsFactory(ac,
+        new EqualsRecursiveChecker(FastOrDeep.Fast));
+    let chk: EqualsRecursiveChecker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
       [], true, "An Array MUST fail fast equals with a boolean."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         [], new Map(), "An Array MUST fail fast equals with a Map."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
       [], NaN, "An Array MUST fail fast equals with a NaN."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
       [], null, "An Array MUST fail fast equals with a null."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
       [], {}, "An Array MUST fail fast equals with a object."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
       [], '', "An Array MUST fail fast equals with a string."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
       [], undefined, "An Array MUST fail fast equals with a undefined."));
     //Nan
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         NaN, [], "An NaN MUST fail fast equals with a array."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         NaN, true, "An NaN MUST fail fast equals with a boolean."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         NaN, new Map(), "An NaN MUST fail fast equals with a Map."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         NaN, null, "An NaN MUST fail fast equals with a null."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         NaN, {}, "An NaN MUST fail fast equals with a object."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         NaN, '', "An NaN MUST fail fast equals with a string."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         NaN, undefined, "An NaN MUST fail fast equals with a undefined."));
     //Null
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         null, [], "An null MUST fail fast equals with a array."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         null, true, "An null MUST fail fast equals with a boolean."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         null, new Map(), "An null MUST fail fast equals with a Map."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         null, {}, "An null MUST fail fast equals with a object."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         null, '', "An null MUST fail fast equals with a string."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         null, undefined, "An null MUST fail fast equals with a undefined."));
     //Object 
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         {}, [], "An Object MUST fail fast equals with a Array."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         {}, true, "An Object MUST fail fast equals with a boolean."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         {}, new Map(), "An Object MUST fail fast equals with a Map."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         {}, null, "An Object MUST fail fast equals with a null."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         {}, '', "An Object MUST fail fast equals with a string."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         {}, undefined, "An Object MUST fail fast equals with a undefined."));
 
     //String
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         '', [], "An string MUST fail fast equals with a Array."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         '', true, "An string MUST fail fast equals with a boolean."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         '', new Map(), "An string MUST fail fast equals with a Map."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         '', null, "An string MUST fail fast equals with a null."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         '', {}, "An string MUST fail fast equals with a Object."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         '', undefined, "An string MUST fail fast equals with a undefined."));
 
     //Undefined
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         undefined, [], "An undefined MUST fail fast equals with a Array."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         undefined, true, "An undefined MUST fail fast equals with a boolean."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         undefined, new Map(), "An undefined MUST fail fast equals with a Map."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         undefined, null, "An undefined MUST fail fast equals with a null."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         undefined, {}, "An undefined MUST fail fast equals with a Object."));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
         undefined, '', "An undefined MUST fail fast equals with a string."));
   }
 
   testFastEqualsShallowSuccesses(ac: I_AssertionContext) {
 
-    let paramFactory = new AssertFastEqualsParamsFactory(ac, new FastEqualsRecursiveChecker());
-    let chk: FastEqualsRecursiveChecker = new FastEqualsRecursiveChecker();
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    let paramFactory = new AssertFastEqualsParamsFactory(ac,
+        new EqualsRecursiveChecker(FastOrDeep.Fast));
+    let chk: EqualsRecursiveChecker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
        [], [], "Two empty arrays should be equal.", 2
     ));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         true, true, "Two booleans should be equal."
     ));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         new Map(), new Map(), "Two empty maps should be equal.", 2
     ));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         NaN, NaN, "Two NaNs should be equal."
     ));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         null, null, "Two nulls should be equal."
     ));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         {}, {}, "Two empty Objects should be equal."
     ));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         '', '', "Two empty strings should be equal."
     ));
-    FastEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
+    EqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         undefined, undefined, "Two undefineds should be equal."
     ));
   }

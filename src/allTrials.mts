@@ -20,7 +20,7 @@ import { AssertionContext } from '../../tests4ts.ts.adligo.org/src/assertions.mj
 import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
 import { AssertionsTrial } from './assertionsTrial.mjs';
-import { FastEqualsRecursiveCheckerTrial } from './fastEqualsRecursiveCheckerTrial.mjs';
+import { EqualsRecursiveCheckerTrial } from './equalsRecursiveCheckerTrial.mjs';
 import { TestRunnerTrial } from './testRunnerTrial.mjs';
 
 export const ALL_TRIAL_MAP: Map<string, I_Trial> = new Map();
@@ -30,7 +30,7 @@ function addTrial(trial: I_Trial) {
 export const ALL_TRIALS: I_Trial[] = [
   new BasicAssertionsTrial(),  
   new AssertionsTrial(),
-  new FastEqualsRecursiveCheckerTrial(),
+  new EqualsRecursiveCheckerTrial(),
   new TestRunnerTrial()
 ]
 for (const t of ALL_TRIALS) {
