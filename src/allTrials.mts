@@ -20,8 +20,11 @@ import { AssertionContext } from '../../tests4ts.ts.adligo.org/src/assertions.mj
 import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
 import { AssertionsTrial } from './assertionsTrial.mjs';
-import { EqualsRecursiveCheckerTrial } from './equalsRecursiveCheckerTrial.mjs';
 import { TestRunnerTrial } from './testRunnerTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelOneTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelOneTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelThreeTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelThreeTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelTwoTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelTwoTrial.mjs';
+import { ShallowEqualsRecursiveCheckerTrial  } from './assertions/equals/shallowEqualsRecursiveCheckerTrial.mjs';
 
 export const ALL_TRIAL_MAP: Map<string, I_Trial> = new Map();
 function addTrial(trial: I_Trial) {
@@ -30,8 +33,11 @@ function addTrial(trial: I_Trial) {
 export const ALL_TRIALS: I_Trial[] = [
   new BasicAssertionsTrial(),  
   new AssertionsTrial(),
-  new EqualsRecursiveCheckerTrial(),
-  new TestRunnerTrial()
+  new TestRunnerTrial(),
+  new ShallowEqualsRecursiveCheckerTrial(),
+  new EqualsRecursiveCheckerFastLevelOneTrial(),
+  new EqualsRecursiveCheckerFastLevelTwoTrial(),
+  new EqualsRecursiveCheckerFastLevelThreeTrial(),
 ]
 for (const t of ALL_TRIALS) {
   addTrial(t);

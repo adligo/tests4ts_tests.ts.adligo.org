@@ -16,18 +16,16 @@
 import { run, RunTestParams } from '../../tests4ts.ts.adligo.org/src/singleTestRunner.mjs';
 import { I_AssertionContext, I_AssertionContextConsumer, I_Test, I_TestFactory, I_Trial } from "@ts.adligo.org/i_tests4ts/dist/i_tests4ts.mjs";
 
-import { AssertionsTrial } from './assertionsTrial.mjs';
-import { EqualsRecursiveCheckerTrial } from './equalsRecursiveCheckerTrial.mjs';
-import {AbstractTrialTrial} from "./abstractTrialTrial.mjs";
-
-//runTest(new AssertionsTrial(), 'testNotEqualsStringFailures');
-//runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelOneArrayItemFailures');
-//runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelTwoArrayItemFailures');
-//runTest(new FastEqualsRecursiveCheckerTrial(), 'testFastEqualsDeepLevelThreeArrayItemFailures');
+import { AssertionsTrial} from './assertionsTrial.mjs';
+import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelOneTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelOneTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelThreeTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelThreeTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelTwoTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelTwoTrial.mjs';
+import { ShallowEqualsRecursiveCheckerTrial  } from './assertions/equals/shallowEqualsRecursiveCheckerTrial.mjs';
 
 //this method of running tests allows debugging right from this code which I think is nicer than the
 // older runTest function
 run(new RunTestParams((ac) => {
-        new EqualsRecursiveCheckerTrial().testFastEqualsShallowSuccesses(ac);
+        new ShallowEqualsRecursiveCheckerTrial().testFastEqualsShallowSuccesses(ac);
 }));
 //runTest(new AbstractTrialTrial(), 'testGetErrorDetails');

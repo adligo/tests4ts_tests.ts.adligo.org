@@ -15,12 +15,16 @@
  */
 
 import { runTrial } from '../../tests4ts.ts.adligo.org/src/singleTrialRunner.mjs';
+import { TestRunnerTrial } from './testRunnerTrial.mjs';
+
+//Trials
 import { AssertionsTrial} from './assertionsTrial.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
-import { EqualsRecursiveCheckerTrial } from './equalsRecursiveCheckerTrial.mjs';
-
-import { TestRunnerTrial } from './testRunnerTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelOneTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelOneTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelThreeTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelThreeTrial.mjs';
+import { EqualsRecursiveCheckerFastLevelTwoTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelTwoTrial.mjs';
+import { ShallowEqualsRecursiveCheckerTrial  } from './assertions/equals/shallowEqualsRecursiveCheckerTrial.mjs';
 
 //runTrial( new BasicAssertionsTrial());
 //runTrial(new TestRunnerTrial());
-runTrial(new EqualsRecursiveCheckerTrial());
+runTrial(new EqualsRecursiveCheckerFastLevelThreeTrial());
