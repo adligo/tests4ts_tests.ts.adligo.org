@@ -24,7 +24,10 @@ import { EqualsRecursiveCheckerFastLevelOneTrial }  from './assertions/equals/eq
 import { EqualsRecursiveCheckerFastLevelThreeTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelThreeTrial.mjs';
 import { EqualsRecursiveCheckerFastLevelTwoTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelTwoTrial.mjs';
 import { ShallowEqualsRecursiveCheckerTrial  } from './assertions/equals/shallowEqualsRecursiveCheckerTrial.mjs';
+import {
+    EqualsRecursiveCheckerDeepLevelThreeTrial
+} from "./assertions/equals/equalsRecursiveCheckerDeepLevelThreeTrial.mjs";
 
 //runTrial( new BasicAssertionsTrial());
 //runTrial(new TestRunnerTrial());
-runTrial(new EqualsRecursiveCheckerFastLevelThreeTrial());
+runTrial(new EqualsRecursiveCheckerDeepLevelThreeTrial());

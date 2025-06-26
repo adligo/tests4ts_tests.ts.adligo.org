@@ -18,6 +18,8 @@ import { I_AssertionContext, I_AssertionContextConsumer, I_Test, I_TestFactory, 
 
 import { AssertionsTrial} from './assertionsTrial.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
+import { EqualsRecursiveCheckerDeepLevelThreeTrial }  from './assertions/equals/equalsRecursiveCheckerDeepLevelThreeTrial.mjs';
+
 import { EqualsRecursiveCheckerFastLevelOneTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelOneTrial.mjs';
 import { EqualsRecursiveCheckerFastLevelThreeTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelThreeTrial.mjs';
 import { EqualsRecursiveCheckerFastLevelTwoTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelTwoTrial.mjs';
@@ -26,6 +28,6 @@ import { ShallowEqualsRecursiveCheckerTrial  } from './assertions/equals/shallow
 //this method of running tests allows debugging right from this code which I think is nicer than the
 // older runTest function
 run(new RunTestParams((ac) => {
-        new ShallowEqualsRecursiveCheckerTrial().testFastEqualsShallowSuccesses(ac);
+        new EqualsRecursiveCheckerDeepLevelThreeTrial().testDeepEqualsDeepLevelThreeMapSizeActualBiggerFailures(ac);
 }));
 //runTest(new AbstractTrialTrial(), 'testGetErrorDetails');

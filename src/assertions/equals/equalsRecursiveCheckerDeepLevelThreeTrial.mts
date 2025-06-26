@@ -33,19 +33,19 @@ import {
 } from '../../../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
 import {ApiTrial} from '../../../../tests4ts.ts.adligo.org/src/trials.mjs';
 
-export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
-  public static readonly CLAZZ_NAME = 'org.adligo.ts.tests4ts_tests.assertions.equals.EqualsRecursiveCheckerFastLevelThreeTrial';
+export class EqualsRecursiveCheckerDeepLevelThreeTrial extends ApiTrial {
+  public static readonly CLAZZ_NAME = 'org.adligo.ts.tests4ts_tests.assertions.equals.EqualsRecursiveCheckerDeepLevelThreeTrial';
 
 
   constructor() {
-    super(EqualsRecursiveCheckerFastLevelThreeTrial.CLAZZ_NAME);
+    super(EqualsRecursiveCheckerDeepLevelThreeTrial.CLAZZ_NAME);
   }
 
-  testFastEqualsDeepLevelThreeArrayItemFailures(ac: I_AssertionContext) {
+  testDeepEqualsDeepLevelThreeArrayItemFailures(ac: I_AssertionContext) {
     let e = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 11]]];
     let f = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 12]]];
 
-    let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
     let result1: RecursiveEqualsResult = checker.equals(e, f);
 
     //deep first assertions
@@ -102,14 +102,14 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
     ac.same(12, arrayZeroCompare.getActual(),
         "cNode1's child at index 6 [2,2,2] should have false for actual");
 
-    ac.same(21, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
+    ac.same(18, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
   }
 
-  testFastEqualsDeepLevelThreeArraySizeActualBiggerFailures(ac: I_AssertionContext) {
+  testDeepEqualsDeepLevelThreeArraySizeActualBiggerFailures(ac: I_AssertionContext) {
         let e = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 11]]];
         let f = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 12, 13]]];
 
-        let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+        let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
         let result1: RecursiveEqualsResult = checker.equals(e, f);
 
         //deep first assertions
@@ -159,11 +159,11 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
         ac.same(18, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
       }
       
-  testFastEqualsDeepLevelThreeArraySizeExpectedBiggerFailures(ac: I_AssertionContext) {
+  testDeepEqualsDeepLevelThreeArraySizeExpectedBiggerFailures(ac: I_AssertionContext) {
       let e = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 11, 12]]];
       let f = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 12]]];
 
-      let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+      let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
       let result1: RecursiveEqualsResult = checker.equals(e, f);
 
       //deep first assertions
@@ -214,11 +214,11 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
       ac.same(18, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
     }
 
-    testFastEqualsDeepLevelThreeArrayItemSuccess(ac: I_AssertionContext) {
+    testDeepEqualsDeepLevelThreeArrayItemSuccess(ac: I_AssertionContext) {
         let e = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 11]]];
         let f = [[1,2,3], [4, 5, 6], [6,7,[9, 10, 11]]];
 
-        let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+        let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
         let result1: RecursiveEqualsResult = checker.equals(e, f);
 
         //deep first assertions
@@ -229,7 +229,7 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
         ac.same(21, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
     }
 
-  testFastEqualsDeepLevelThreeMapItemFailures(ac: I_AssertionContext) {
+  testDeepEqualsDeepLevelThreeMapItemFailures(ac: I_AssertionContext) {
     let mapA = new Map();
     let mapB = new Map();
 
@@ -247,7 +247,7 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
     mapB2.set('k3', "xyz");
 
 
-    let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+    let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
     let result1: RecursiveEqualsResult = checker.equals(mapA, mapB);
 
     //deep first assertions
@@ -306,11 +306,11 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
     ac.same('xyz', arrayZeroCompare.getActual(),
         "cNode1's child at index 6 [2,2,2] should have xyz for actual");
 
-    ac.same(10, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
+    ac.same(7, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
   }
 
 
-    testFastEqualsDeepLevelThreeMapSizeActualBiggerFailures(ac: I_AssertionContext) {
+    testDeepEqualsDeepLevelThreeMapSizeActualBiggerFailures(ac: I_AssertionContext) {
         let mapA = new Map();
         let mapB = new Map();
 
@@ -325,10 +325,10 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
         mapB1.set('k2', mapB2);
 
         mapA2.set('k3', "abc");
-        mapB2.set('k3', "xyz");
+        mapB2.set('k3', "abc");
         mapB2.set('k3b', "abc");
 
-        let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+        let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
         let result1: RecursiveEqualsResult = checker.equals(mapA, mapB);
 
         //deep first assertions
@@ -369,17 +369,27 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
         ac.isTrue(cNode1.getChildInfoSize() >= 7, "cNode1 should have at least seven children");
         ac.same(ComparisonNodeInfoType.Type, cNode1.getChildInfo(6).getInfoType(),
             "cNode1's child at index 6 should be an Type");
+
+        ac.isTrue(cNode1.getChildInfoSize() >= 8, "cNode1 should have at least eight children");
         let sizeNode: I_ComparisionCollectionSizeInfo  = cNode1.getChildInfo(7) as I_ComparisionCollectionSizeInfo;
         ac.same(ComparisonNodeInfoType.CollectionSize, sizeNode.getInfoType(),
             "cNode1's child at index 7 should be an CollectionSize");
         ac.same(1, sizeNode.getExpectedSize(), "the sizeNode should have an expected size of 4");
         ac.same(2, sizeNode.getActualSize(), "the sizeNode should have an actual size of 3");
 
+        ac.isTrue(cNode1.getChildInfoSize() >= 9, "cNode1 should have at least nine children");
+        ac.same(ComparisonNodeInfoType.MapValue, cNode1.getChildInfo(8).getInfoType(),
+            "cNode1's child at index 8 should be an MapValue");
+        let eqNode: I_ComparisionMapValueInfo  = cNode1.getChildInfo(8) as I_ComparisionMapValueInfo;
+        ac.same('k3b', eqNode.getKey(), "The expected key is 'k3a'");
+        ac.isTrue(null === eqNode.getExpectedValue(), "the expected value should be null.");
+        ac.same('abc', eqNode.getActualValue(), "the actual value should be 'abc'");
+
         ac.same(8, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
     }
 
 
-    testFastEqualsDeepLevelThreeMapSizeExpectedBiggerFailures(ac: I_AssertionContext) {
+    testDeepEqualsDeepLevelThreeMapSizeExpectedBiggerFailures(ac: I_AssertionContext) {
         let mapA = new Map();
         let mapB = new Map();
 
@@ -395,10 +405,10 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
 
         mapA2.set('k3', "abc");
         mapA2.set('k3a', "xyz");
-        mapB2.set('k3', "xyz");
+        mapB2.set('k3', "abc");
 
 
-        let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+        let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
         let result1: RecursiveEqualsResult = checker.equals(mapA, mapB);
 
         //deep first assertions
@@ -448,11 +458,21 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
             "cNode1's child at index 7 should be an CollectionSize");
         ac.same(2, sizeNode.getExpectedSize(), "the sizeNode should have an expected size of 4");
         ac.same(1, sizeNode.getActualSize(), "the sizeNode should have an actual size of 3");
-        ac.same(8, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
+
+        ac.isTrue(cNode1.getChildInfoSize() >= 9, "cNode1 should have at least nine children");
+        ac.same(ComparisonNodeInfoType.MapValue, cNode1.getChildInfo(8).getInfoType(),
+            "cNode1's child at index 8 should be an MapValue");
+        let eqNode: I_ComparisionMapValueInfo  = cNode1.getChildInfo(8) as I_ComparisionMapValueInfo;
+        ac.same('k3a', eqNode.getKey(), "The expected key is 'k3a'");
+        ac.same('xyz', eqNode.getExpectedValue(), "the expected value should be 'abc'.");
+        let av = eqNode.getActualValue();
+        ac.isTrue(null === av, "the actual value should be null");
+
+        ac.same(7, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
     }
 
 
-    testFastEqualsDeepLevelThreeMapSuccess(ac: I_AssertionContext) {
+    testDeepEqualsDeepLevelThreeMapSuccess(ac: I_AssertionContext) {
         let mapA = new Map();
         let mapB = new Map();
 
@@ -470,7 +490,7 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
         mapB2.set('k3', "abc");
 
 
-        let checker = new EqualsRecursiveChecker(FastOrDeep.Fast);
+        let checker = new EqualsRecursiveChecker(FastOrDeep.Deep);
         let result1: RecursiveEqualsResult = checker.equals(mapA, mapB);
 
         //deep first assertions
