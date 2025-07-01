@@ -21,6 +21,7 @@ import { Test, TestParams } from '../../tests4ts.ts.adligo.org/src/tests.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
 import { AssertionsTrial } from './assertionsTrial.mjs';
 import { TestRunnerTrial } from './testRunnerTrial.mjs';
+import { EqualsFormatDeepNotEqualsTrial } from './assertions/equals/equalsFormatDeepNotEqualsTrial.mjs'
 import { EqualsRecursiveCheckerFastLevelOneTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelOneTrial.mjs';
 import { EqualsRecursiveCheckerFastLevelThreeTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelThreeTrial.mjs';
 import { EqualsRecursiveCheckerFastLevelTwoTrial }  from './assertions/equals/equalsRecursiveCheckerFastLevelTwoTrial.mjs';
@@ -38,6 +39,8 @@ export const ALL_TRIALS: I_Trial[] = [
   new EqualsRecursiveCheckerFastLevelOneTrial(),
   new EqualsRecursiveCheckerFastLevelTwoTrial(),
   new EqualsRecursiveCheckerFastLevelThreeTrial(),
+  new EqualsRecursiveCheckerFastLevelOneTrial(),
+  new EqualsFormatDeepNotEqualsTrial()
 ]
 for (const t of ALL_TRIALS) {
   addTrial(t);

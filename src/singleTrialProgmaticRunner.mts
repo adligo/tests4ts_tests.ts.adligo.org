@@ -17,6 +17,7 @@
 import { runTrial } from '../../tests4ts.ts.adligo.org/src/singleTrialRunner.mjs';
 import { TestRunnerTrial } from './testRunnerTrial.mjs';
 
+import { EqualsFormatDeepNotEqualsTrial } from './assertions/equals/equalsFormatDeepNotEqualsTrial.mjs'
 //Trials
 import { AssertionsTrial} from './assertionsTrial.mjs';
 import { BasicAssertionsTrial } from './assertions/basicAssertionsTrial.mjs';
@@ -30,4 +31,4 @@ import {
 
 //runTrial( new BasicAssertionsTrial());
 //runTrial(new TestRunnerTrial());
-runTrial(new EqualsRecursiveCheckerDeepLevelThreeTrial());
+runTrial(new EqualsFormatDeepNotEqualsTrial());
