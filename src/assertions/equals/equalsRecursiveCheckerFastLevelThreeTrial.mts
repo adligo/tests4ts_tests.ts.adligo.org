@@ -102,7 +102,7 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
     ac.same(12, arrayZeroCompare.getActual(),
         "cNode1's child at index 6 [2,2,2] should have false for actual");
 
-    ac.same(21, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
+    ac.same(22, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
   }
 
   testFastEqualsDeepLevelThreeArraySizeActualBiggerFailures(ac: I_AssertionContext) {
@@ -306,7 +306,7 @@ export class EqualsRecursiveCheckerFastLevelThreeTrial extends ApiTrial {
     ac.same('xyz', arrayZeroCompare.getActual(),
         "cNode1's child at index 6 [2,2,2] should have xyz for actual");
 
-    ac.same(10, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
+    ac.same(11, cNode1.getAssertionCount(), "The top most assertion count for e fastEquals f should be 1");
   }
 
 

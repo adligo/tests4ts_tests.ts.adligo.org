@@ -31,4 +31,4 @@ import {
 
 //runTrial( new BasicAssertionsTrial());
 //runTrial(new TestRunnerTrial());
-runTrial(new EqualsFormatDeepNotEqualsTrial());
+runTrial(new AssertionsTrial());

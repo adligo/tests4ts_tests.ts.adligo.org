@@ -27,13 +27,15 @@ import { EqualsRecursiveChecker } from '../../../tests4ts.ts.adligo.org/src/equa
 import { I_AssertionContext, I_EquatableString, I_Test } from '../../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
 import { ApiTrial } from '../../../tests4ts.ts.adligo.org/src/trials.mjs';
 import { Test, TestParams } from '../../../tests4ts.ts.adligo.org/src/tests.mjs';
-import { isNull } from '@ts.adligo.org/type-guards/dist/typeGuards.mjs'
+import { isNil } from '@ts.adligo.org/type-guards/dist/typeGuards.mjs';
 
 export const EXPECTED_MESSAGE = (exp: string, act: string, msg?: string) => {
-  if (isNull(msg)) {
-      return  "The expected is; \n\t'" + exp + "'\n\n\tHowever the actual is;\n\t'" + act + "'";
+  let r = '';
+  if (msg) {
+    r += '\n' + msg + '\n';
   }
-  return `${msg ? msg + '\n' : ''}The expected is; \n\t'${exp}'\n\n\tHowever the actual is;\n\t'${act}'`;
+  r += "Equals expected;\n  '" + exp + "'\nActual;\n  '" + act + "'\n";
+  return r;
 }
 
 export class BasicAssertionsTrial extends ApiTrial /*todo move to SoruceFileTrial */ {

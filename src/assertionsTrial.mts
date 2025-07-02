@@ -109,64 +109,58 @@ export class AssertionsTrial extends ApiTrial {
     let arrC2 = ['a', 'b', 'c', true];
     let arrB1 = ['a1', 'b'];
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('isArray == true', '{}', 'B null msg.')), () => {
-      ac.equals(arrA, {}, 'B null msg.');
-    }, 'equals should throw an error when compairing the arrays arrA and an empty Object.');
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('isArray == true', 'null', 'B null msg.')), () => {
-      ac.equals(arrA, null, 'B null msg.');
-    }, 'equals should throw an error when compairing the arrays arrA and null.');
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('a', 'a1',
-        '\n\t\tThe array element at the following index should match idx: 0')), () => {
-      ac.equals(arrB, arrB1);
-    }, 'equals should throw an error when compairing the arrays arrB and arrB1.');
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('a1', 'a',
-        '\n\t\tThe array element at the following index should match idx: 0')), () => {
-      ac.equals(arrB1, arrB);
-    }, 'equals should throw an error when compairing the arrays arrB1 and arrB.');
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('Array size 0', 'Array size 2')), () => {
-      ac.equals(arrA, arrB);
-    }, 'equals should throw an error when compairing the arrays arrA and arrB.');
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('d', 'd1',
-        '\n\t\tThe array element at the following index should match idx: 3')), () => {
-      ac.equals(arrC, arrC1);
-    }, 'equals should throw an error when compairing the arrays arrC and arrC1.');
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('d', 'true',
-        '\n\t\tThe array element at the following index should match idx: 3')), () => {
-      ac.equals(arrC, arrC2);
-    }, 'equals should throw an error when compairing the arrays arrC and arrC2 because of type differences');
-
+    //Note @Beetle would have wiped out this code, if you just copied and pasted
+    // from the beetle output
     //Equatable Objects in Arrays
     let johnA = [new EqMock('john')];
     let bobA = [new EqMock('bob')];
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"john"}', '{"name":"bob"}',
-        '\n\t\tThe array element at the following index should match idx: 0')), () => {
-      ac.equals(johnA, bobA);
-    }, 'equals should throw an error when compairing the arrays johnA and bobA because of delegated calls to their equals methods');
-
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"bob"}', '{"name":"john"}',
-        '\n\t\tThe array element at the following index should match idx: 0')), () => {
-      ac.equals(bobA, johnA);
-    }, 'equals should throw an error when compairing the arrays johnA and bobA because of delegated calls to their equals methods');
-
     let objArrA = [new EqMock('john'), new EqMock('bob'), new EqMock('bob')];
     let objArrB = [new EqMock('john'), new EqMock('bob'), new EqStrMock('amy')];
+    
+    ac.thrown(new AssertionError('B null msg.\nEquals expected;\n  \'[]\'\nActual;\n  \'{}\'\n#0 TypeEquals expected;\n  Array\nActual;\n  Object\n'), () => {
+      ac.equals(arrA, {}, 'B null msg.');
+    }, 'equals should throw an error when comparing the arrays arrA and an empty Object.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"bob"}', 'eqStr [asAString: amy]',
-        '\n\t\tThe array element at the following index should match idx: 2')), () => {
+    ac.thrown(new AssertionError('B null msg.\nEquals expected;\n  \'[]\'\nActual;\n  \'null\'\n#0 TypeEquals expected;\n  Array\nActual;\n  Null\n'), () => {
+      ac.equals(arrA, null, 'B null msg.');
+    }, 'equals should throw an error when comparing the arrays arrA and null.');
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'a,b\'\nActual;\n  \'a1,b\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'a\'\nActual;\n  \'a1\'\n'), () => {
+      ac.equals(arrB, arrB1);
+    }, 'equals should throw an error when comparing the arrays arrB and arrB1.');
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'a1,b\'\nActual;\n  \'a,b\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'a1\'\nActual;\n  \'a\'\n'), () => {
+      ac.equals(arrB1, arrB);
+    }, 'equals should throw an error when comparing the arrays arrB1 and arrB.');
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'[]\'\nActual;\n  \'a,b\'\n#0 CollectionSize expected 0 actual 2\n#1 TypeEquals expected;\n  Array\nActual;\n  Array\n'), () => {
+      ac.equals(arrA, arrB);
+    }, 'equals should throw an error when comparing the arrays arrA and arrB.');
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'a,b,c,d\'\nActual;\n  \'a,b,c,d1\'\n#0 Array @ idx 3\n#1 Equals expected;\n  \'d\'\nActual;\n  \'d1\'\n'), () => {
+      ac.equals(arrC, arrC1);
+    }, 'equals should throw an error when comparing the arrays arrC and arrC1.');
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'a,b,c,d\'\nActual;\n  \'a,b,c,true\'\n#0 Array @ idx 3\n#1 Equals expected;\n  \'d\'\nActual;\n  \'true\'\n'), () => {
+      ac.equals(arrC, arrC2);
+    }, 'equals should throw an error when comparing the arrays arrC and arrC2 because of type differences.');
+    
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"john\\"}]\'\nActual;\n  \'[{\\"name\\":\\"bob\\"}]\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'{\\"name\\":\\"john\\"}\'\nActual;\n  \'{\\"name\\":\\"bob\\"}\'\n'), () => {
+      ac.equals(johnA, bobA);
+    }, 'equals should throw an error when comparing the arrays johnA and bobA because of delegated calls to their equals methods.');
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"bob\\"}]\'\nActual;\n  \'[{\\"name\\":\\"john\\"}]\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'{\\"name\\":\\"bob\\"}\'\nActual;\n  \'{\\"name\\":\\"john\\"}\'\n'), () => {
+      ac.equals(bobA, johnA);
+    }, 'equals should throw an error when comparing the arrays johnA and bobA because of delegated calls to their equals methods.');
+
+    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},{\\"name\\":\\"bob\\"}]\'\nActual;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},\\"eqStr [asAString: amy]\\"]\'\n#0 Array @ idx 2\n#1 Equals expected;\n  \'{\\"name\\":\\"bob\\"}\'\nActual;\n  \'eqStr [asAString: amy]\'\n'), () => {
       ac.equals(objArrA, objArrB);
-    }, 'equals should throw an error when compairing the arrays objArrA and objArrB because of delegated calls to their equals methods');
+    }, 'equals should throw an error when comparing the arrays objArrA and objArrB because of delegated calls to their equals methods.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: amy]', '{"name":"bob"}',
-        '\n\t\tThe array element at the following index should match idx: 2')), () => {
+    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},\\"eqStr [asAString: amy]\\"]\'\nActual;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},{\\"name\\":\\"bob\\"}]\'\n#0 Array @ idx 2\n#1 Equals expected;\n  \'eqStr [asAString: amy]\'\nActual;\n  \'{\\"name\\":\\"bob\\"}\'\n'), () => {
       ac.equals(objArrB, objArrA);
-    }, 'equals should throw an error when compairing the arrays objArrB and objArrA because of delegated calls to their equals methods');
+    }, 'equals should throw an error when comparing the arrays objArrB and objArrA because of delegated calls to their equals methods.');
   }
 
   testEqualsArraySuccesses(ac: I_AssertionContext) {

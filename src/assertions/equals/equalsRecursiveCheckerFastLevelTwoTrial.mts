@@ -87,7 +87,7 @@ export class EqualsRecursiveCheckerFastLevelTwoTrial extends ApiTrial {
     ac.same('k', arrayZeroCompare.getActual(),
         "cNode1's child at index 4 [1,2] should have false for actual");
 
-    ac.same(12, cNode1.getAssertionCount(), "The top most assertion count for h fastEquals h should be 1");
+    ac.same(13, cNode1.getAssertionCount(), "The top most assertion count for h fastEquals h should be 1");
 
   }
 

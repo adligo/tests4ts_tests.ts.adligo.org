@@ -38,10 +38,11 @@
   "scripts": {
     "build": "tsc",
     "buildAndTest": "tsc && c8 node ./dist/tests4ts_tests.ts.adligo.org/src/allTrialsRunner.mjs",
+    "buildAndTestMan": "tsc && c8 node ./dist/tests4ts_tests.ts.adligo.org/src/manual/manual3DeepEqualsFailureVisualCheckTrial.mjs",
     "test": " bun run src/singleTestRunner.mts ",
     "testProg": " bun run src/singleTestProgmaticRunner.mts ",
     "testProgTrial": " bun run src/singleTrialProgmaticRunner.mts ",
-     "testNote" : "Use a command like; npm run test -- -test org.adligo.ts.tests4ts_tests.FastEqualsRecursiveCheckerTrial.testFastEqualsShallowTypeFailures",
+    "testNote" : "Use a command like; npm run test -- -test org.adligo.ts.tests4ts_tests.FastEqualsRecursiveCheckerTrial.testFastEqualsShallowTypeFailures",
     "tests": "c8 node ./dist/tests4ts_tests.ts.adligo.org/src/allTrialsRunner.mjs",
     "trial": " bun run src/singleTrialRunner.mts ",
     "trialNote": "Use a command like; npm run trial -- -trial org.adligo.ts.tests4ts_tests.FastEqualsRecursiveCheckerTrial"

@@ -106,9 +106,6 @@ const EXPECTED_MESSAGE = (exp: string, act: string, msg?: string) => {
 }
 
 class AssertFastEqualsParams {
-  get count(): number {
-    return this._count;
-  }
   public static readonly CHECKER = new EqualsRecursiveChecker(FastOrDeep.Fast);
 
 
@@ -120,7 +117,7 @@ class AssertFastEqualsParams {
    * The assertion count
    * @private
    */
-  private _count: number;
+  private _count: number = 1;
   private _expected: any;
   private _message: string;
 
@@ -209,7 +206,7 @@ export class ShallowEqualsRecursiveCheckerTrial extends ApiTrial {
     let actual = params.getActual();
     let result = chk.equals(expected, actual);
     params.getAc().same(false, result.isSuccess(), params.getMessage() + ' isSuccess.');
-    params.getAc().same(1, result.getAssertionCount(), params.getMessage() + ' getAssertionCount.');
+    params.getAc().same(params.getCount(), result.getAssertionCount(), params.getMessage() + ' getAssertionCount.');
   }
 
   private static assertFastEqualsShallowSuccess(params: AssertFastEqualsParams) {
@@ -263,7 +260,7 @@ export class ShallowEqualsRecursiveCheckerTrial extends ApiTrial {
     ac.same(false, arrayZeroCompare.getActual(),
         "cNode1's child at index 3 should have false for actual");
 
-    ac.same(3, cNode1.getAssertionCount(), "The top most assertion count for a fastEquals b should be 1");
+    ac.same(4, cNode1.getAssertionCount(), "The top most assertion count for a fastEquals b should be 1");
 
   }
 
@@ -316,17 +313,18 @@ export class ShallowEqualsRecursiveCheckerTrial extends ApiTrial {
         null, undefined, "An null MUST fail fast equals with a undefined."));
     //Object 
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
-        {}, [], "An Object MUST fail fast equals with a Array."));
+        {}, [], "An Object MUST fail fast equals with a Array.", 2));
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
-        {}, true, "An Object MUST fail fast equals with a boolean."));
+        {}, true, "An Object MUST fail fast equals with a boolean.", 1));
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
-        {}, new Map(), "An Object MUST fail fast equals with a Map."));
+        {}, new Map(), "An Object MUST fail fast equals with a Map.", 2));
+    // I guess a null has a typeof actual === 'object'
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
-        {}, null, "An Object MUST fail fast equals with a null."));
+        {}, null, "An Object MUST fail fast equals with a null.", 2));
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
-        {}, '', "An Object MUST fail fast equals with a string."));
+        {}, '', "An Object MUST fail fast equals with a string.", 1));
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
-        {}, undefined, "An Object MUST fail fast equals with a undefined."));
+        {}, undefined, "An Object MUST fail fast equals with a undefined.", 1));
 
     //String
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowFailure(paramFactory.with(
@@ -378,7 +376,7 @@ export class ShallowEqualsRecursiveCheckerTrial extends ApiTrial {
         null, null, "Two nulls should be equal."
     ));
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
-        {}, {}, "Two empty Objects should be equal."
+        {}, {}, "Two empty Objects should be equal.", 2
     ));
     ShallowEqualsRecursiveCheckerTrial.assertFastEqualsShallowSuccess(paramFactory.with(
         '', '', "Two empty strings should be equal."

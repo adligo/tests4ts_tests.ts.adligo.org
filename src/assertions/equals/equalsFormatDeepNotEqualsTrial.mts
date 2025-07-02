@@ -17,16 +17,10 @@
 
 import { ComparisonNodeInfoType, TypeName } from '../../../../i_tests4ts_types.ts.adligo.org/src/i_tests4ts_types.mjs';
 import {
-    I_AssertionContext,
-    I_ComparisionArrayInfo,
-    I_ComparisionCollectionSizeInfo,
-    I_ComparisionEqualInfo,
-    I_ComparisionMapValueInfo,
-    I_ComparisionSetInfo,
-    I_ComparisionTypeInfo
+    I_AssertionContext
 } from '../../../../i_tests4ts.ts.adligo.org/src/i_tests4ts.mjs';
 import { ApiTrial } from '../../../../tests4ts.ts.adligo.org/src/trials.mjs';
-import { AssertionContext } from '../../../../tests4ts.ts.adligo.org/src/assertions.mjs';
+import { RecursiveEqualsResultErrorFormmater } from '../../../../tests4ts.ts.adligo.org/src/formatters.mjs';
 import {
     ComparisionArrayInfo,
     ComparisionCollectionSizeInfo,
@@ -40,22 +34,20 @@ import { RecursiveEqualsResult } from '../../../../tests4ts.ts.adligo.org/src/eq
 
 
 export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
-    public static readonly CLAZZ_NAME = 'org.adligo.ts.tests4ts_tests.assertions.EqualsFormatDeepNotEqualsTrial';
-
+    public static readonly CLAZZ_NAME = 'org.adligo.ts.tests4ts_tests.assertions.formatTrial';
 
     constructor() {
         super(EqualsFormatDeepNotEqualsTrial.CLAZZ_NAME);
     }
 
-
-    testEqualsFormatDeepNotEqualsBasicPrimitives(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatBasicPrimitives(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant("actual", "expected");
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  'expected'\n" +
             "Actual;\n" +
             "  'actual'\n";
@@ -65,32 +57,30 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsWithMessage(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatNumbersWithMessage(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant(456, 123);
         let result = new RecursiveEqualsResult(rootNode, false);
 
-
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result, "Custom message");
-        let expected = "Custom message\nEquals expected;\n" +
+        let formatted = formatter.format(result, "Custom message");
+        let expected = "\nCustom message\nEquals expected;\n" +
             "  '123'\n" +
             "Actual;\n" +
             "  '456'\n";
-
 
         ac.same(expected, formatted, "Formatting with message should match expected output");
     }
 
 
-    testEqualsFormatDeepNotEqualsWithArrayInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithArrayInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant([1, 2, 4], [1, 2, 3]);
         rootNode.addChildInfo(new ComparisionArrayInfo(2));
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  '[1,2,3]'\n" +
             "Actual;\n" +
             "  '[1,2,4]'\n" +
@@ -101,15 +91,15 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsWithCollectionSizeInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithCollectionSizeInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant([1, 2, 3], [1, 2]);
         rootNode.addChildInfo(new ComparisionCollectionSizeInfo(2, 3));
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  '[1,2]'\n" +
             "Actual;\n" +
             "  '[1,2,3]'\n" +
@@ -120,16 +110,16 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsWithEqualInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithEqualInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant("parent", "parent");
         let equalInfo = new ComparisionNodeMutant("child1", "child2");
         rootNode.addChildInfo(equalInfo);
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  'parent'\n" +
             "Actual;\n" +
             "  'parent'\n" +
@@ -143,15 +133,15 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsWithMapValueInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithMapValueInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant(new Map(), new Map());
         rootNode.addChildInfo(new ComparisionMapInfo("key1", "expectedValue", "actualValue"));
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  '{}'\n" +
             "Actual;\n" +
             "  '{}'\n" +
@@ -166,15 +156,15 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         ac.same(expected, formatted, "Map value info formatting should match expected output");
     }
 
-    testEqualsFormatDeepNotEqualsWithTypeInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithTypeInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant(123, "actualS");
         rootNode.addChildInfo(new ComparisionTypeInfo(TypeName.String, TypeName.Number));
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  'actualS'\n" +
             "Actual;\n" +
             "  '123'\n" +
@@ -188,8 +178,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsWithMultipleChildInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithMultipleChildInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant([1, 3, 4],[1, 2]);
         rootNode.addChildInfo(new ComparisionArrayInfo(1));
         rootNode.addChildInfo(new ComparisionCollectionSizeInfo(2, 3));
@@ -197,8 +187,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  '[1,2]'\n" +
             "Actual;\n" +
             "  '[1,3,4]'\n" +
@@ -214,14 +204,14 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsWithNullAndUndefined(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithNullAndUndefined(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let rootNode = new RootComparisionNodeMutant(undefined, null);
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  'null'\n" +
             "Actual;\n" +
             "  'undefined'\n";
@@ -231,16 +221,16 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsWithComplexObjects(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatWithComplexObjects(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let expectedObj = { name: "John", age: 30 };
         let actualObj = { name: "Jane", age: 25 };
         let rootNode = new RootComparisionNodeMutant(actualObj, expectedObj);
         let result = new RecursiveEqualsResult(rootNode, false);
 
 
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
-        let expected = "Equals expected;\n" +
+        let formatted = formatter.format(result);
+        let expected = "\nEquals expected;\n" +
             "  '{\"name\":\"John\",\"age\":30}'\n" +
             "Actual;\n" +
             "  '{\"name\":\"Jane\",\"age\":25}'\n";
@@ -250,11 +240,11 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    // Tests for equalsFormatDeepNotEqualsHelper method specifically
-    testEqualsFormatDeepNotEqualsHelperArrayInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    // Tests for formatHelper method specifically
+    testformatHelperArrayInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let arrayInfo = new ComparisionArrayInfo(5);
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(arrayInfo, 3, "    ");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(arrayInfo, 3, "    ");
 
 
         let expected = "    #3 Array @ idx 5\n";
@@ -262,10 +252,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperCollectionSizeInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperCollectionSizeInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let sizeInfo = new ComparisionCollectionSizeInfo(10, 15);
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(sizeInfo, 1, "  ");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(sizeInfo, 1, "  ");
 
 
         let expected = "  #1 CollectionSize expected 10 actual 15\n";
@@ -273,10 +263,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperEqualInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperEqualInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let equalInfo = new ComparisionNodeMutant("hello", "world");
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
 
 
         let expected = "#0 Equals expected;\n" +
@@ -287,10 +277,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperMapValueInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperMapValueInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let mapInfo = new ComparisionMapInfo("testKey", "expectedVal", "actualVal");
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(mapInfo, 2, "      ");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(mapInfo, 2, "      ");
 
 
         let expected =
@@ -304,12 +294,12 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperSetInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperSetInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let missingExpected = new Set(["a", "b"]);
         let missingActuals = new Set(["c", "d"]);
         let setInfo = new ComparisionSetInfo(missingExpected, missingActuals, true);
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(setInfo, 4, "        ");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(setInfo, 4, "        ");
 
 
         let expected = "        #4 Set is NOT yet suppored. \n";
@@ -317,10 +307,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperTypeInfo(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperTypeInfo(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let typeInfo = new ComparisionTypeInfo(TypeName.Boolean, TypeName.String);
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(typeInfo, 7, "          ");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(typeInfo, 7, "          ");
 
 
         let expected = "          #7 TypeEquals expected;\n" +
@@ -331,10 +321,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperWithSpecialCharacters(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperWithSpecialCharacters(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let equalInfo = new ComparisionNodeMutant("line1\nline2\ttab", "special'quote\"double");
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
 
 
         let expected = "#0 Equals expected;\n" +
@@ -345,10 +335,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperWithEmptyStrings(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperWithEmptyStrings(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let equalInfo = new ComparisionNodeMutant("", "   ");
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(equalInfo, 1, "  ");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(equalInfo, 1, "  ");
 
 
         let expected = "  #1 Equals expected;\n" +
@@ -359,10 +349,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperWithNumbers(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperWithNumbers(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let equalInfo = new ComparisionNodeMutant(3.14159, -42);
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
 
 
         let expected = "#0 Equals expected;\n" +
@@ -373,10 +363,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
     }
 
 
-    testEqualsFormatDeepNotEqualsHelperWithBooleans(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperWithBooleans(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
         let equalInfo = new ComparisionNodeMutant(true, false);
-        let formatted = assertionContext.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
+        let formatted = formatter.equalsFormatDeepNotEqualsHelper(equalInfo, 0, "");
 
 
         let expected = "#0 Equals expected;\n" +
@@ -386,8 +376,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         ac.same(expected, formatted, "Booleans should be formatted as strings correctly");
     }
 
-    testEqualsFormatDeepNotEqualsHelperThreeLevelsOfArrays(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperThreeLevelsOfArrays(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
 
         let rootNode = new ComparisionNodeMutant([1, [2,[3]]], [1, [2,[4]]]);
         rootNode.addChildInfo(new ComparisionNodeMutant(3,4));
@@ -396,10 +386,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         rootNode.addChildInfo(new ComparisionArrayInfo(1));
 
         let result = new RecursiveEqualsResult(rootNode, false);
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
+        let formatted = formatter.format(result);
 
 
-        let expected = "Equals expected;\n" +
+        let expected = "\nEquals expected;\n" +
             "  '[1,[2,[3]]]'\n" +
             "Actual;\n" +
             "  '[1,[2,[4]]]'\n" +
@@ -412,8 +402,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
             "          '4'\n";
         ac.same(expected, formatted, "ThreeLevelsOfArrays should be formatted correctly");
     }
-    testEqualsFormatDeepNotEqualsHelperThreeLevelsOfArraysStripeMap(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperThreeLevelsOfArraysStripeMap(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
 
         let eMapMid = new Map();
         let aMapMid = new Map();
@@ -427,10 +417,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         rootNode.addChildInfo(new ComparisionArrayInfo(1));
 
         let result = new RecursiveEqualsResult(rootNode, false);
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
+        let formatted = formatter.format(result);
 
 
-        let expected = "Equals expected;\n" +
+        let expected = "\nEquals expected;\n" +
             "  '[1,{}]'\n" +
             "Actual;\n" +
             "  '[1,{}]'\n" +
@@ -454,8 +444,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         ac.same(expected, formatted, "ThreeLevelsOfArrays should be formatted correctly");
     }
 
-    testEqualsFormatDeepNotEqualsHelperThreeLevelsOfMaps(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperThreeLevelsOfMaps(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
 
         let eMapTop = new Map();
         let eMap2nd = new Map();
@@ -477,11 +467,11 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         rootNode.addChildInfo(new ComparisionMapInfo('a',eMap2nd,aMap2nd));
 
         let result = new RecursiveEqualsResult(rootNode, false);
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
+        let formatted = formatter.format(result);
 
 
         let expected =
-            "Equals expected;\n" +
+            "\nEquals expected;\n" +
             "  '{\"a\":{}}'\n" +
             "Actual;\n" +
             "  '{\"a\":{}}'\n" +
@@ -511,8 +501,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         ac.same(expected, formatted, "ThreeLevelsOfMaps should be formatted correctly");
     }
 
-    testEqualsFormatDeepNotEqualsHelperThreeLevelsOfMapsStripeArray(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperThreeLevelsOfMapsStripeArray(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
 
         let eMapTop = new Map();
         let eMap3rd = new Map();
@@ -528,10 +518,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         rootNode.addChildInfo(new ComparisionMapInfo('z',[eMap3rd], [aMap3rd]));
 
         let result = new RecursiveEqualsResult(rootNode, false);
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
+        let formatted = formatter.format(result);
 
 
-        let expected = "Equals expected;\n" +
+        let expected = "\nEquals expected;\n" +
             "  '{\"z\":[{}]}'\n" +
             "Actual;\n" +
             "  '{\"z\":[{}]}'\n" +
@@ -555,8 +545,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         ;
         ac.same(expected, formatted, "ThreeLevelsOfArrays should be formatted correctly");
     }
-    testEqualsFormatDeepNotEqualsHelperTwoLevelsOfArrays(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperTwoLevelsOfArrays(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
 
         let rootNode = new ComparisionNodeMutant([1, [3]], [1, [2]]);
         rootNode.addChildInfo(new ComparisionNodeMutant(3,2));
@@ -564,10 +554,10 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         rootNode.addChildInfo(new ComparisionArrayInfo(1));
 
         let result = new RecursiveEqualsResult(rootNode, false);
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
+        let formatted = formatter.format(result);
 
 
-        let expected = "Equals expected;\n" +
+        let expected = "\nEquals expected;\n" +
             "  '[1,[3]]'\n" +
             "Actual;\n" +
             "  '[1,[2]]'\n" +
@@ -580,8 +570,8 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         ac.same(expected, formatted, "TwoLevelsOfArrays should be formatted correctly");
     }
 
-    testEqualsFormatDeepNotEqualsHelperTwoLevelsOfMaps(ac: I_AssertionContext) {
-        let assertionContext = new AssertionContext();
+    testformatHelperTwoLevelsOfMaps(ac: I_AssertionContext) {
+        let formatter = new RecursiveEqualsResultErrorFormmater();
 
         let eMapTop = new Map();
         let eMap2nd = new Map();
@@ -597,11 +587,11 @@ export class EqualsFormatDeepNotEqualsTrial extends ApiTrial {
         rootNode.addChildInfo(new ComparisionMapInfo('a',eMap2nd,aMap2nd));
 
         let result = new RecursiveEqualsResult(rootNode, false);
-        let formatted = assertionContext.equalsFormatDeepNotEquals(result);
+        let formatted = formatter.format(result);
 
 
         let expected =
-            "Equals expected;\n" +
+            "\nEquals expected;\n" +
             "  '{\"a\":{}}'\n" +
             "Actual;\n" +
             "  '{\"a\":{}}'\n" +

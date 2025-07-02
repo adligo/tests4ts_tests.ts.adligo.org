@@ -29,6 +29,6 @@ import { ShallowEqualsRecursiveCheckerTrial  } from './assertions/equals/shallow
 //this method of running tests allows debugging right from this code which I think is nicer than the
 // older runTest function
 run(new RunTestParams((ac) => {
-        new EqualsFormatDeepNotEqualsTrial().testEqualsFormatDeepNotEqualsHelperThreeLevelsOfMapsStripeArray   (ac);
+        new ShallowEqualsRecursiveCheckerTrial().testFastEqualsShallowTypeFailures(ac);
 }));
 //runTest(new AbstractTrialTrial(), 'testGetErrorDetails');
