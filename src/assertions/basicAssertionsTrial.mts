@@ -32,9 +32,9 @@ import { isNil } from '@ts.adligo.org/type-guards/dist/typeGuards.mjs';
 export const EXPECTED_MESSAGE = (exp: string, act: string, msg?: string) => {
   let r = '';
   if (msg) {
-    r += '\n' + msg + '\n';
+    r += '\n' + msg;
   }
-  r += "Equals expected;\n  '" + exp + "'\nActual;\n  '" + act + "'\n";
+  r += "\nEquals expected;\n  '" + exp + "'\nActual;\n  '" + act + "'\n";
   return r;
 }
 

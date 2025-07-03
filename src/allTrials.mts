@@ -33,7 +33,7 @@ function addTrial(trial: I_Trial) {
 }
 export const ALL_TRIALS: I_Trial[] = [
   new BasicAssertionsTrial(),  
-  //new AssertionsTrial(),
+  new AssertionsTrial(),
   new TestRunnerTrial(),
   new ShallowEqualsRecursiveCheckerTrial(),
   new EqualsRecursiveCheckerFastLevelOneTrial(),

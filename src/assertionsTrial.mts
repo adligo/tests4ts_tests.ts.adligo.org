@@ -117,48 +117,187 @@ export class AssertionsTrial extends ApiTrial {
     let objArrA = [new EqMock('john'), new EqMock('bob'), new EqMock('bob')];
     let objArrB = [new EqMock('john'), new EqMock('bob'), new EqStrMock('amy')];
     
-    ac.thrown(new AssertionError('B null msg.\nEquals expected;\n  \'[]\'\nActual;\n  \'{}\'\n#0 TypeEquals expected;\n  Array\nActual;\n  Object\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "B null msg.\n" +
+        "Equals expected;\n" +
+        "  '[]'\n" +
+        "Actual;\n" +
+        "  '{}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Object\n"), () => {
       ac.equals(arrA, {}, 'B null msg.');
     }, 'equals should throw an error when comparing the arrays arrA and an empty Object.');
 
-    ac.thrown(new AssertionError('B null msg.\nEquals expected;\n  \'[]\'\nActual;\n  \'null\'\n#0 TypeEquals expected;\n  Array\nActual;\n  Null\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "B null msg.\n" +
+        "Equals expected;\n" +
+        "  '[]'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Null\n"), () => {
       ac.equals(arrA, null, 'B null msg.');
     }, 'equals should throw an error when comparing the arrays arrA and null.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'a,b\'\nActual;\n  \'a1,b\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'a\'\nActual;\n  \'a1\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[\"a\",\"b\"]'\n" +
+        "Actual;\n" +
+        "  '[\"a1\",\"b\"]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 2 actual 2\n" +
+        "      #2 Array @ idx 0\n" +
+        "        #3 Equals expected;\n" +
+        "          'a'\n" +
+        "        Actual;\n" +
+        "          'a1'\n"), () => {
       ac.equals(arrB, arrB1);
     }, 'equals should throw an error when comparing the arrays arrB and arrB1.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'a1,b\'\nActual;\n  \'a,b\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'a1\'\nActual;\n  \'a\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[\"a1\",\"b\"]'\n" +
+        "Actual;\n" +
+        "  '[\"a\",\"b\"]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 2 actual 2\n" +
+        "      #2 Array @ idx 0\n" +
+        "        #3 Equals expected;\n" +
+        "          'a1'\n" +
+        "        Actual;\n" +
+        "          'a'\n"), () => {
       ac.equals(arrB1, arrB);
     }, 'equals should throw an error when comparing the arrays arrB1 and arrB.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'[]\'\nActual;\n  \'a,b\'\n#0 CollectionSize expected 0 actual 2\n#1 TypeEquals expected;\n  Array\nActual;\n  Array\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[]'\n" +
+        "Actual;\n" +
+        "  '[\"a\",\"b\"]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 0 actual 2\n"), () => {
       ac.equals(arrA, arrB);
     }, 'equals should throw an error when comparing the arrays arrA and arrB.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'a,b,c,d\'\nActual;\n  \'a,b,c,d1\'\n#0 Array @ idx 3\n#1 Equals expected;\n  \'d\'\nActual;\n  \'d1\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[\"a\",\"b\",\"c\",\"d\"]'\n" +
+        "Actual;\n" +
+        "  '[\"a\",\"b\",\"c\",\"d1\"]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 4 actual 4\n" +
+        "      #2 Array @ idx 3\n" +
+        "        #3 Equals expected;\n" +
+        "          'd'\n" +
+        "        Actual;\n" +
+        "          'd1'\n"), () => {
       ac.equals(arrC, arrC1);
     }, 'equals should throw an error when comparing the arrays arrC and arrC1.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'a,b,c,d\'\nActual;\n  \'a,b,c,true\'\n#0 Array @ idx 3\n#1 Equals expected;\n  \'d\'\nActual;\n  \'true\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[\"a\",\"b\",\"c\",\"d\"]'\n" +
+        "Actual;\n" +
+        "  '[\"a\",\"b\",\"c\",true]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 4 actual 4\n" +
+        "      #2 Array @ idx 3\n" +
+        "        #3 TypeEquals expected;\n" +
+        "          String\n" +
+        "        Actual;\n" +
+        "          Boolean\n"), () => {
       ac.equals(arrC, arrC2);
     }, 'equals should throw an error when comparing the arrays arrC and arrC2 because of type differences.');
     
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"john\\"}]\'\nActual;\n  \'[{\\"name\\":\\"bob\\"}]\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'{\\"name\\":\\"john\\"}\'\nActual;\n  \'{\\"name\\":\\"bob\\"}\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[{\"name\":\"john\"}]'\n" +
+        "Actual;\n" +
+        "  '[{\"name\":\"bob\"}]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 1 actual 1\n" +
+        "      #2 Array @ idx 0\n" +
+        "        #3 Equals expected;\n" +
+        "          '{\"name\":\"john\"}'\n" +
+        "        Actual;\n" +
+        "          '{\"name\":\"bob\"}'\n"), () => {
       ac.equals(johnA, bobA);
     }, 'equals should throw an error when comparing the arrays johnA and bobA because of delegated calls to their equals methods.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"bob\\"}]\'\nActual;\n  \'[{\\"name\\":\\"john\\"}]\'\n#0 Array @ idx 0\n#1 Equals expected;\n  \'{\\"name\\":\\"bob\\"}\'\nActual;\n  \'{\\"name\\":\\"john\\"}\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[{\"name\":\"bob\"}]'\n" +
+        "Actual;\n" +
+        "  '[{\"name\":\"john\"}]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 1 actual 1\n" +
+        "      #2 Array @ idx 0\n" +
+        "        #3 Equals expected;\n" +
+        "          '{\"name\":\"bob\"}'\n" +
+        "        Actual;\n" +
+        "          '{\"name\":\"john\"}'\n"), () => {
       ac.equals(bobA, johnA);
     }, 'equals should throw an error when comparing the arrays johnA and bobA because of delegated calls to their equals methods.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},{\\"name\\":\\"bob\\"}]\'\nActual;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},\\"eqStr [asAString: amy]\\"]\'\n#0 Array @ idx 2\n#1 Equals expected;\n  \'{\\"name\\":\\"bob\\"}\'\nActual;\n  \'eqStr [asAString: amy]\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[{\"name\":\"john\"},{\"name\":\"bob\"},{\"name\":\"bob\"}]'\n" +
+        "Actual;\n" +
+        "  '[{\"name\":\"john\"},{\"name\":\"bob\"},{\"name\":\"amy\"}]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 3 actual 3\n" +
+        "      #2 Array @ idx 2\n" +
+        "        #3 Equals expected;\n" +
+        "          '{\"name\":\"bob\"}'\n" +
+        "        Actual;\n" +
+        "          'eqStr [asAString: amy]'\n"), () => {
       ac.equals(objArrA, objArrB);
     }, 'equals should throw an error when comparing the arrays objArrA and objArrB because of delegated calls to their equals methods.');
 
-    ac.thrown(new AssertionError('Equals expected;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},\\"eqStr [asAString: amy]\\"]\'\nActual;\n  \'[{\\"name\\":\\"john\\"},{\\"name\\":\\"bob\\"},{\\"name\\":\\"bob\\"}]\'\n#0 Array @ idx 2\n#1 Equals expected;\n  \'eqStr [asAString: amy]\'\nActual;\n  \'{\\"name\\":\\"bob\\"}\'\n'), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '[{\"name\":\"john\"},{\"name\":\"bob\"},{\"name\":\"amy\"}]'\n" +
+        "Actual;\n" +
+        "  '[{\"name\":\"john\"},{\"name\":\"bob\"},{\"name\":\"bob\"}]'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Array\n" +
+        "  Actual;\n" +
+        "    Array\n" +
+        "    #1 CollectionSize expected 3 actual 3\n" +
+        "      #2 Array @ idx 2\n" +
+        "        #3 Equals expected;\n" +
+        "          'eqStr [asAString: amy]'\n" +
+        "        Actual;\n" +
+        "          '{\"name\":\"bob\"}'\n"), () => {
       ac.equals(objArrB, objArrA);
     }, 'equals should throw an error when comparing the arrays objArrB and objArrA because of delegated calls to their equals methods.');
   }
@@ -185,23 +324,63 @@ export class AssertionsTrial extends ApiTrial {
   testEqualsBooleanFailures(ac: I_AssertionContext) {
     // Failure: Primitives that are not equal (expect throw with specific message)
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('true', 'true')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'true'\n" +
+        "Actual;\n" +
+        "  'true'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Boolean\n" +
+        "  Actual;\n" +
+        "    String\n"), () => {
       ac.equals(true, 'true');
     }, 'equals should throw an error for the boolean true equaling the string true.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('true', '42')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'true'\n" +
+        "Actual;\n" +
+        "  '42'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Boolean\n" +
+        "  Actual;\n" +
+        "    Number\n"), () => {
       ac.equals(true, 42);
     }, 'equals should throw an error for the boolean true equaling the number 42.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('true', 'null')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'true'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Boolean\n" +
+        "  Actual;\n" +
+        "    Null\n"), () => {
       ac.equals(true, null);
     }, 'equals should throw an error for the boolean true equaling a null.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('true', 'undefined')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'true'\n" +
+        "Actual;\n" +
+        "  'undefined'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Boolean\n" +
+        "  Actual;\n" +
+        "    Undefined\n"), () => {
       ac.equals(true, undefined);
     }, 'equals should throw an error for the boolean true equaling a undefined.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('true', 'NaN')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'true'\n" +
+        "Actual;\n" +
+        "  'NaN'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Boolean\n" +
+        "  Actual;\n" +
+        "    NaN\n"), () => {
       ac.equals(true, NaN);
     }, 'equals should throw an error for the boolean true equaling a NaN.');
   }
@@ -213,11 +392,27 @@ export class AssertionsTrial extends ApiTrial {
     let eqMockA = new EqMock('a');
     let eqMockB = new EqMock('b');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"a"}', '{"name":"b"}')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"name\":\"a\"}'\n" +
+        "Actual;\n" +
+        "  '{\"name\":\"b\"}'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"name\":\"a\"}'\n" +
+        "  Actual;\n" +
+        "    '{\"name\":\"b\"}'\n"), () => {
       ac.equals(eqMockA, eqMockB);
     }, 'equals should throw an error for eqMockA.equals(eqMockB).');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"b"}', '{"name":"a"}')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"name\":\"b\"}'\n" +
+        "Actual;\n" +
+        "  '{\"name\":\"a\"}'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"name\":\"b\"}'\n" +
+        "  Actual;\n" +
+        "    '{\"name\":\"a\"}'\n"), () => {
       ac.equals(eqMockB, eqMockA);
     }, 'equals should throw an error for eqMockB.equals(eqMockB).');
   }
@@ -235,11 +430,27 @@ export class AssertionsTrial extends ApiTrial {
     let eqStrMockA = new EqStrMock('a');
     let eqStrMockB = new EqStrMock('b');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: a]', 'eqStr [asAString: b]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'eqStr [asAString: a]'\n" +
+        "Actual;\n" +
+        "  'eqStr [asAString: b]'\n" +
+        "  #0 Equals expected;\n" +
+        "    'eqStr [asAString: a]'\n" +
+        "  Actual;\n" +
+        "    'eqStr [asAString: b]'\n"), () => {
       ac.equals(eqStrMockA, eqStrMockB);
     }, 'equals should throw an error for eqStrMockA.equals(eqStrMockB).');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: b]', 'eqStr [asAString: a]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'eqStr [asAString: b]'\n" +
+        "Actual;\n" +
+        "  'eqStr [asAString: a]'\n" +
+        "  #0 Equals expected;\n" +
+        "    'eqStr [asAString: b]'\n" +
+        "  Actual;\n" +
+        "    'eqStr [asAString: a]'\n"), () => {
       ac.equals(eqStrMockB, eqStrMockA);
     }, 'equals should throw an error for eqStrMockB.equals(eqStrMockB).');
   }
@@ -257,11 +468,27 @@ export class AssertionsTrial extends ApiTrial {
     let strMockA = new StrMock('a');
     let strMockB = new StrMock('b');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: a]', 'eqStr [asAString: b]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'eqStr [asAString: a]'\n" +
+        "Actual;\n" +
+        "  'eqStr [asAString: b]'\n" +
+        "  #0 Equals expected;\n" +
+        "    'eqStr [asAString: a]'\n" +
+        "  Actual;\n" +
+        "    'eqStr [asAString: b]'\n"), () => {
       ac.equals(strMockA, strMockB);
     }, 'equals should throw an error for eqStrMockA.equals(eqStrMockB).');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: b]', 'eqStr [asAString: a]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'eqStr [asAString: b]'\n" +
+        "Actual;\n" +
+        "  'eqStr [asAString: a]'\n" +
+        "  #0 Equals expected;\n" +
+        "    'eqStr [asAString: b]'\n" +
+        "  Actual;\n" +
+        "    'eqStr [asAString: a]'\n"), () => {
       ac.equals(strMockB, strMockA);
     }, 'equals should throw an error for eqStrMockB.equals(eqStrMockB).');
   }
@@ -303,38 +530,133 @@ export class AssertionsTrial extends ApiTrial {
     mapD.set('f', 'a');
     Object.freeze(mapD);
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('isMap == true', 'null')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{}'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Null\n"), () => {
       ac.equals(mapA, null);
-    }, 'equals should throw an error when compairing the arrays mapA and null.');
+    }, 'equals should throw an error when compairing the maps mapA and null.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('isMap == true', '{}')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{}'\n" +
+        "Actual;\n" +
+        "  '{}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Object\n"), () => {
       ac.equals(mapA, {});
-    }, 'equals should throw an error when compairing the arrays mapA and an empty object.');
+    }, 'equals should throw an error when compairing the maps mapA and an empty object.');
 
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('Map size 0', 'Map size 1')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{}'\n" +
+        "Actual;\n" +
+        "  '{\"a\":\"b\"}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Map\n" +
+        "    #1 CollectionSize expected 0 actual 1\n" +
+        "      #2 MapValue key;\n" +
+        "        'a'\n" +
+        "      Expected;\n" +
+        "        'null'\n" +
+        "      Actual;\n" +
+        "        'b'\n"), () => {
       ac.equals(mapA, mapB);
-    }, 'equals should throw an error when compairing the arrays mapA and mapB.');
+    }, 'equals should throw an error when compairing the maps mapA and mapB.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('b', 'c',
-        "\n\tThe value with the following key should match;\n\t\t 'a'\n")), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"a\":\"b\"}'\n" +
+        "Actual;\n" +
+        "  '{\"a\":\"c\"}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Map\n" +
+        "    #1 CollectionSize expected 1 actual 1\n" +
+        "      #2 MapValue key;\n" +
+        "        'a'\n" +
+        "      Expected;\n" +
+        "        'b'\n" +
+        "      Actual;\n" +
+        "        'c'\n" +
+        "        #3 Equals expected;\n" +
+        "          'b'\n" +
+        "        Actual;\n" +
+        "          'c'\n"), () => {
       ac.equals(mapB, mapC);
-    }, 'equals should throw an error when compairing the arrays mapB and mapC.');
+    }, 'equals should throw an error when compairing the maps mapB and mapC.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('c', 'b',
-        "\n\tThe value with the following key should match;\n\t\t 'a'\n")), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"a\":\"c\"}'\n" +
+        "Actual;\n" +
+        "  '{\"a\":\"b\"}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Map\n" +
+        "    #1 CollectionSize expected 1 actual 1\n" +
+        "      #2 MapValue key;\n" +
+        "        'a'\n" +
+        "      Expected;\n" +
+        "        'c'\n" +
+        "      Actual;\n" +
+        "        'b'\n" +
+        "        #3 Equals expected;\n" +
+        "          'c'\n" +
+        "        Actual;\n" +
+        "          'b'\n"), () => {
       ac.equals(mapC, mapB);
-    }, 'equals should throw an error when compairing the arrays mapC and mapB.');
+    }, 'equals should throw an error when compairing the maps mapC and mapB.');
 
-    ac.thrown(new AssertionError(
-        "\n\tThe following keys are missing from the expected Map;\n\t\td,f\n"), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"a\":\"c\"}'\n" +
+        "Actual;\n" +
+        "  '{\"a\":\"c\",\"d\":\"e\",\"f\":\"a\"}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Map\n" +
+        "    #1 CollectionSize expected 1 actual 3\n" +
+        "      #2 MapValue key;\n" +
+        "        'd'\n" +
+        "      Expected;\n" +
+        "        'null'\n" +
+        "      Actual;\n" +
+        "        'e'\n"), () => {
       ac.equals(mapC, mapD);
-    }, 'equals should throw an error when compairing the arrays mapC and mapD.');
+    }, 'equals should throw an error when compairing the maps mapC and mapD.');
 
-    ac.thrown(new AssertionError(
-        "\n\tThe following keys are missing from the actual Map;\n\t\td,f\n"), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"a\":\"c\",\"d\":\"e\",\"f\":\"a\"}'\n" +
+        "Actual;\n" +
+        "  '{\"a\":\"c\"}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Map\n" +
+        "    #1 CollectionSize expected 3 actual 1\n" +
+        "      #2 MapValue key;\n" +
+        "        'd'\n" +
+        "      Expected;\n" +
+        "        'e'\n" +
+        "      Actual;\n" +
+        "        'null'\n"), () => {
       ac.equals(mapD, mapC);
-    }, 'equals should throw an error when compairing the arrays mapD and mapC.');
+    }, 'equals should throw an error when compairing the maps mapD and mapC.');
 
     let objMapA3: Map<any, any> = new Map();
     objMapA3.set('john', new EqMock('john'));
@@ -344,57 +666,173 @@ export class AssertionsTrial extends ApiTrial {
     objMapB4.set('john', new EqStrMock('jim'));
     Object.freeze(objMapB4);
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"john"}', 'eqStr [asAString: jim]',
-        "\n\tThe value with the following key should match;\n\t\t 'john'\n")), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"john\":{\"name\":\"john\"}}'\n" +
+        "Actual;\n" +
+        "  '{\"john\":{\"name\":\"jim\"}}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Map\n" +
+        "    #1 CollectionSize expected 1 actual 1\n" +
+        "      #2 MapValue key;\n" +
+        "        'john'\n" +
+        "      Expected;\n" +
+        "        '{\"name\":\"john\"}'\n" +
+        "      Actual;\n" +
+        "        'eqStr [asAString: jim]'\n" +
+        "        #3 Equals expected;\n" +
+        "          '{\"name\":\"john\"}'\n" +
+        "        Actual;\n" +
+        "          'eqStr [asAString: jim]'\n"), () => {
       ac.equals(objMapA3, objMapB4);
-    }, 'equals should throw an error when compairing the arrays objMapA3 and objMapB4.');
+    }, 'equals should throw an error when compairing the maps objMapA3 and objMapB4.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: jim]', '{"name":"john"}',
-        "\n\tThe value with the following key should match;\n\t\t 'john'\n")), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"john\":{\"name\":\"jim\"}}'\n" +
+        "Actual;\n" +
+        "  '{\"john\":{\"name\":\"john\"}}'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Map\n" +
+        "  Actual;\n" +
+        "    Map\n" +
+        "    #1 CollectionSize expected 1 actual 1\n" +
+        "      #2 MapValue key;\n" +
+        "        'john'\n" +
+        "      Expected;\n" +
+        "        'eqStr [asAString: jim]'\n" +
+        "      Actual;\n" +
+        "        '{\"name\":\"john\"}'\n" +
+        "        #3 Equals expected;\n" +
+        "          'eqStr [asAString: jim]'\n" +
+        "        Actual;\n" +
+        "          '{\"name\":\"john\"}'\n"), () => {
       ac.equals(objMapB4, objMapA3);
-    }, 'equals should throw an error when compairing the arrays objMapB4 and objMapA3.');
+    }, 'equals should throw an error when compairing the maps objMapB4 and objMapA3.');
   }
 
   testEqualsNonStringPrimitivesFailures(ac: I_AssertionContext) {
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('NaN', 'false')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'NaN'\n" +
+        "Actual;\n" +
+        "  'false'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    NaN\n" +
+        "  Actual;\n" +
+        "    Boolean\n"), () => {
       ac.equals(NaN, false);
     }, 'equals should throw an error for a NaN equaling the boolean false.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('NaN', 'hello')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'NaN'\n" +
+        "Actual;\n" +
+        "  'hello'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    NaN\n" +
+        "  Actual;\n" +
+        "    String\n"), () => {
       ac.equals(NaN, 'hello');
     }, 'equals should throw an error for a NaN equaling the string hello.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('NaN', '42')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'NaN'\n" +
+        "Actual;\n" +
+        "  '42'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    NaN\n" +
+        "  Actual;\n" +
+        "    Number\n"), () => {
       ac.equals(NaN, 42);
     }, 'equals should throw an error for a NaN equaling the number 42.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('NaN', 'null')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'NaN'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    NaN\n" +
+        "  Actual;\n" +
+        "    Null\n"), () => {
       ac.equals(NaN, null);
     }, 'equals should throw an error for a NaN equaling a null.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('true', 'undefined')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'true'\n" +
+        "Actual;\n" +
+        "  'undefined'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Boolean\n" +
+        "  Actual;\n" +
+        "    Undefined\n"), () => {
       ac.equals(true, undefined);
     }, 'equals should throw an error for a NaN equaling a undefined.');
   }
 
   testEqualsNullFailures(ac: I_AssertionContext) {
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('null', 'false')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'null'\n" +
+        "Actual;\n" +
+        "  'false'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Null\n" +
+        "  Actual;\n" +
+        "    Boolean\n"), () => {
       ac.equals(null, false);
     }, 'equals should throw an error for a null equaling the boolean false.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('null', 'hello')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'null'\n" +
+        "Actual;\n" +
+        "  'hello'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Null\n" +
+        "  Actual;\n" +
+        "    String\n"), () => {
       ac.equals(null, 'hello');
     }, 'equals should throw an error for a null equaling the string hello.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('null', '42')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'null'\n" +
+        "Actual;\n" +
+        "  '42'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Null\n" +
+        "  Actual;\n" +
+        "    Number\n"), () => {
       ac.equals(null, 42);
     }, 'equals should throw an error for a null equaling the number 42.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('null', 'NaN')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'null'\n" +
+        "Actual;\n" +
+        "  'NaN'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Null\n" +
+        "  Actual;\n" +
+        "    NaN\n"), () => {
       ac.equals(null, NaN);
     }, 'equals should throw an error for a null equaling a NaN.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('null', 'undefined')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'null'\n" +
+        "Actual;\n" +
+        "  'undefined'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Null\n" +
+        "  Actual;\n" +
+        "    Undefined\n"), () => {
       ac.equals(null, undefined);
     }, 'equals should throw an null equaling a undefined.');
   }
@@ -402,31 +840,87 @@ export class AssertionsTrial extends ApiTrial {
 
   testEqualsNumberFailures(ac: I_AssertionContext) {
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('1', 'false')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '1'\n" +
+        "Actual;\n" +
+        "  'false'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Number\n" +
+        "  Actual;\n" +
+        "    Boolean\n"), () => {
       ac.equals(1, false);
     }, 'equals should throw an error for a number 1 equaling the boolean false.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('1', 'hello')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '1'\n" +
+        "Actual;\n" +
+        "  'hello'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Number\n" +
+        "  Actual;\n" +
+        "    String\n"), () => {
       ac.equals(1, 'hello');
     }, 'equals should throw an error for a number 1 equaling the string hello.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('1', '1')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '1'\n" +
+        "Actual;\n" +
+        "  '1'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Number\n" +
+        "  Actual;\n" +
+        "    String\n"), () => {
       ac.equals(1, '1');
     }, 'equals should throw an error for a number 1 equaling the string 1.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('1', '42')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '1'\n" +
+        "Actual;\n" +
+        "  '42'\n" +
+        "  #0 Equals expected;\n" +
+        "    '1'\n" +
+        "  Actual;\n" +
+        "    '42'\n"), () => {
       ac.equals(1, 42);
     }, 'equals should throw an error for a number 1 equaling the number 42.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('1', 'NaN')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '1'\n" +
+        "Actual;\n" +
+        "  'NaN'\n" +
+        "  #0 Equals expected;\n" +
+        "    '1'\n" +
+        "  Actual;\n" +
+        "    'NaN'\n"), () => {
       ac.equals(1, NaN);
     }, 'equals should throw an error for the number 1 equaling a NaN.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('1', 'undefined')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '1'\n" +
+        "Actual;\n" +
+        "  'undefined'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Number\n" +
+        "  Actual;\n" +
+        "    Undefined\n"), () => {
       ac.equals(1, undefined);
     }, 'equals should throw an error for the number 1 equaling a undefined.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('1', 'null')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '1'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Number\n" +
+        "  Actual;\n" +
+        "    Null\n"), () => {
       ac.equals(1, null);
     }, 'equals should throw an error for the number 1 equaling a null.');
   }
@@ -434,110 +928,302 @@ export class AssertionsTrial extends ApiTrial {
 
   testEqualsObjectFailures(ac: I_AssertionContext) {
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"id":1}', 'false')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"id\":1}'\n" +
+        "Actual;\n" +
+        "  'false'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"id\":1}'\n" +
+        "  Actual;\n" +
+        "    'false'\n"), () => {
       ac.equals({ id: 1 }, false);
     }, 'equals should throw an error for a object { id: 1} equaling the boolean false.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"id":1}', 'hello')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"id\":1}'\n" +
+        "Actual;\n" +
+        "  'hello'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"id\":1}'\n" +
+        "  Actual;\n" +
+        "    'hello'\n"), () => {
       ac.equals({ id: 1 }, 'hello');
     }, 'equals should throw an error for a object { id: 1} equaling the string hello.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"id":1}', 'NaN')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"id\":1}'\n" +
+        "Actual;\n" +
+        "  'NaN'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"id\":1}'\n" +
+        "  Actual;\n" +
+        "    'NaN'\n"), () => {
       ac.equals({ id: 1 }, NaN);
     }, 'equals should throw an error for a object { id: 1} equaling a NaN.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"id":1}', '1')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"id\":1}'\n" +
+        "Actual;\n" +
+        "  '1'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"id\":1}'\n" +
+        "  Actual;\n" +
+        "    '1'\n"), () => {
       ac.equals({ id: 1 }, 1);
     }, 'equals should throw an error for a object { id: 1} equaling a number 1.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"id":1}', 'null')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"id\":1}'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"id\":1}'\n" +
+        "  Actual;\n" +
+        "    'null'\n"), () => {
       ac.equals({ id: 1 }, null);
     }, 'equals should throw an error for a object { id: 1} equaling a null.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"id":1}', '[object Object]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"id\":1}'\n" +
+        "Actual;\n" +
+        "  '[object Object]'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"id\":1}'\n" +
+        "  Actual;\n" +
+        "    '[object Object]'\n"), () => {
       ac.equals({ id: 1 }, '[object Object]');
     }, 'equals should throw an error for a object { id: 1} equaling a string [object Object].');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"id":1}', 'undefined')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"id\":1}'\n" +
+        "Actual;\n" +
+        "  'undefined'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"id\":1}'\n" +
+        "  Actual;\n" +
+        "    'undefined'\n"), () => {
       ac.equals({ id: 1 }, undefined);
     }, 'equals should throw an error for a object { id: 1} equaling a undefined.');
 
     let john = new EqMock('john');
     let bob = new EqMock('bob');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"john"}', '{"name":"bob"}')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"name\":\"john\"}'\n" +
+        "Actual;\n" +
+        "  '{\"name\":\"bob\"}'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"name\":\"john\"}'\n" +
+        "  Actual;\n" +
+        "    '{\"name\":\"bob\"}'\n"), () => {
       ac.equals(john, bob);
     }, 'equals should throw an error for john equaling bob.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"bob"}', '{"name":"john"}')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"name\":\"bob\"}'\n" +
+        "Actual;\n" +
+        "  '{\"name\":\"john\"}'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"name\":\"bob\"}'\n" +
+        "  Actual;\n" +
+        "    '{\"name\":\"john\"}'\n"), () => {
       ac.equals(bob, john);
     }, 'equals should throw an error for bob equaling john.');
 
     let chris = new EqStrMock('chris');
     let amy = new EqStrMock('amy');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: chris]', 'eqStr [asAString: amy]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'eqStr [asAString: chris]'\n" +
+        "Actual;\n" +
+        "  'eqStr [asAString: amy]'\n" +
+        "  #0 Equals expected;\n" +
+        "    'eqStr [asAString: chris]'\n" +
+        "  Actual;\n" +
+        "    'eqStr [asAString: amy]'\n"), () => {
       ac.equals(chris, amy);
     }, 'equals should throw an error for chris equaling amy.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: amy]', 'eqStr [asAString: chris]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'eqStr [asAString: amy]'\n" +
+        "Actual;\n" +
+        "  'eqStr [asAString: chris]'\n" +
+        "  #0 Equals expected;\n" +
+        "    'eqStr [asAString: amy]'\n" +
+        "  Actual;\n" +
+        "    'eqStr [asAString: chris]'\n"), () => {
       ac.equals(amy, chris);
     }, 'equals should throw an error for chris equaling amy.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('{"name":"john"}', 'eqStr [asAString: amy]')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  '{\"name\":\"john\"}'\n" +
+        "Actual;\n" +
+        "  'eqStr [asAString: amy]'\n" +
+        "  #0 Equals expected;\n" +
+        "    '{\"name\":\"john\"}'\n" +
+        "  Actual;\n" +
+        "    'eqStr [asAString: amy]'\n"), () => {
       ac.equals(john, amy);
     }, 'equals should throw an error for john equaling amy.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('eqStr [asAString: amy]', '{"name":"bob"}')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'eqStr [asAString: amy]'\n" +
+        "Actual;\n" +
+        "  '{\"name\":\"bob\"}'\n" +
+        "  #0 Equals expected;\n" +
+        "    'eqStr [asAString: amy]'\n" +
+        "  Actual;\n" +
+        "    '{\"name\":\"bob\"}'\n"), () => {
       ac.equals(amy, bob);
     }, 'equals should throw an error for amy equaling bob.');
   }
 
 
   testEqualsStringFailures(ac: I_AssertionContext) {
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('hello', 'world')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'hello'\n" +
+        "Actual;\n" +
+        "  'world'\n" +
+        "  #0 Equals expected;\n" +
+        "    'hello'\n" +
+        "  Actual;\n" +
+        "    'world'\n"), () => {
       ac.equals('hello', 'world');
     }, 'equals should throw an error for unequal strings.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('hello', 'false')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'hello'\n" +
+        "Actual;\n" +
+        "  'false'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    String\n" +
+        "  Actual;\n" +
+        "    Boolean\n"), () => {
       ac.equals('hello', false);
     }, "equals should throw an error for string 'hello' equals boolean false.");
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('hello', '42')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'hello'\n" +
+        "Actual;\n" +
+        "  '42'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    String\n" +
+        "  Actual;\n" +
+        "    Number\n"), () => {
       ac.equals('hello', 42);
     }, "equals should throw an error for string 'hello' equals number 42.");
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('hello', 'null')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'hello'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    String\n" +
+        "  Actual;\n" +
+        "    Null\n"), () => {
       ac.equals('hello', null);
     }, "equals should throw an error for string 'hello' equals null.");
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('hello', 'undefined')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'hello'\n" +
+        "Actual;\n" +
+        "  'undefined'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    String\n" +
+        "  Actual;\n" +
+        "    Undefined\n"), () => {
       ac.equals('hello', undefined);
     }, "equals should throw an error for string 'hello' equals undefined.");
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('NaN', 'NaN')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'NaN'\n" +
+        "Actual;\n" +
+        "  'NaN'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    String\n" +
+        "  Actual;\n" +
+        "    NaN\n"), () => {
       ac.equals('NaN', NaN);
     }, "equals should throw an error for string 'NaN' equals an actual NaN.");
   }
 
   testEqualsUndefinedFailures(ac: I_AssertionContext) {
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE(undefined, 'false')), () => {
+    ac.thrown(new AssertionError(
+        "\nEquals expected;\n" +
+        "  'undefined'\n" +
+        "Actual;\n" +
+        "  'false'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Undefined\n" +
+        "  Actual;\n" +
+        "    Boolean\n"), () => {
       ac.equals(undefined, false);
     }, 'equals should throw an error for a undefined equaling the boolean false.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('undefined', 'hello')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'undefined'\n" +
+        "Actual;\n" +
+        "  'hello'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Undefined\n" +
+        "  Actual;\n" +
+        "    String\n"), () => {
       ac.equals(undefined, 'hello');
     }, 'equals should throw an error for a undefined equaling the string hello.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE(undefined, 'NaN')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'undefined'\n" +
+        "Actual;\n" +
+        "  'NaN'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Undefined\n" +
+        "  Actual;\n" +
+        "    NaN\n"), () => {
       ac.equals(undefined, NaN);
     }, 'equals should throw an error for a undefined equaling a NaN.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('undefined', '1')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'undefined'\n" +
+        "Actual;\n" +
+        "  '1'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Undefined\n" +
+        "  Actual;\n" +
+        "    Number\n"), () => {
       ac.equals(undefined, 1);
     }, 'equals should throw an error for a undefined equaling a number 1.');
 
-    ac.thrown(new AssertionError(EXPECTED_MESSAGE('undefined', 'null')), () => {
+    ac.thrown(new AssertionError("\n" +
+        "Equals expected;\n" +
+        "  'undefined'\n" +
+        "Actual;\n" +
+        "  'null'\n" +
+        "  #0 TypeEquals expected;\n" +
+        "    Undefined\n" +
+        "  Actual;\n" +
+        "    Null\n"), () => {
       ac.equals(undefined, null);
     }, 'equals should throw an error for a undefined equaling a null.');
   }
